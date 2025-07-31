@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全告警分析系统 - 演示管理控制台</title>
+    
+    <!-- CSS Framework -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/demo_styles.css') }}" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shield-alt me-2"></i>
+                安全告警分析系统 - 演示控制台
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item">
+                    <span class="nav-link">
+                        <i class="fas fa-clock me-1"></i>
+                        <span id="current-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid py-4">
+        <!-- Status Bar -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-secondary">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-heartbeat me-2 text-danger" id="system-heartbeat"></i>
+                                    系统状态: <span id="system-status" class="badge bg-secondary">检查中...</span>
+                                </h5>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button class="btn btn-outline-info btn-sm me-2" onclick="refreshStatus()">
+                                    <i class="fas fa-sync-alt"></i> 刷新状态
+                                </button>
+                                <span class="text-muted small">最后更新: <span id="last-update">--</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div class="row">
+            <!-- System Control Panel -->
+            <div class="col-lg-4">
+                <div class="card bg-dark border-secondary h-100">
+                    <div class="card-header bg-primary">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-cogs me-2"></i>系统控制
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- System Control Buttons -->
+                        <div class="d-grid gap-3">
+                            <button class="btn btn-success btn-lg" onclick="startSystem()" id="start-btn">
+                                <i class="fas fa-play me-2"></i>启动系统
+                            </button>
+                            <button class="btn btn-warning btn-lg" onclick="restartSystem()" id="restart-btn">
+                                <i class="fas fa-redo me-2"></i>重启系统
+                            </button>
+                            <button class="btn btn-danger btn-lg" onclick="stopSystem()" id="stop-btn">
+                                <i class="fas fa-stop me-2"></i>停止系统
+                            </button>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Quick Actions -->
+                        <h6 class="text-info mb-3">
+                            <i class="fas fa-bolt me-2"></i>快速操作
+                        </h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary btn-sm" onclick="createTestEvent()">
+                                <i class="fas fa-vial me-2"></i>创建测试事件
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" onclick="showDemoScenarios()">
+                                <i class="fas fa-theater-masks me-2"></i>演示场景
+                            </button>
+                            <button class="btn btn-outline-info btn-sm" onclick="openServiceUrls()">
+                                <i class="fas fa-external-link-alt me-2"></i>服务链接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Monitoring -->
+            <div class="col-lg-8">
+                <!-- Resource Monitoring -->
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-header bg-info">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-chart-line me-2"></i>系统资源监控
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="progress-circle mb-2" data-percent="0" id="cpu-progress">
+                                        <span class="progress-text">CPU</span>
+                                    </div>
+                                    <small class="text-muted">CPU使用率</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="progress-circle mb-2" data-percent="0" id="memory-progress">
+                                        <span class="progress-text">内存</span>
+                                    </div>
+                                    <small class="text-muted">内存使用率</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="progress-circle mb-2" data-percent="0" id="disk-progress">
+                                        <span class="progress-text">磁盘</span>
+                                    </div>
+                                    <small class="text-muted">磁盘使用率</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Status -->
+                <div class="card bg-dark border-secondary">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-server me-2"></i>服务状态
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="services-status">
+                            <!-- Services will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs and Activity -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card bg-dark border-secondary">
+                    <div class="card-header bg-secondary">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-terminal me-2"></i>系统日志
+                                </h5>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-outline-light btn-sm" onclick="clearLogs()">
+                                    <i class="fas fa-trash me-1"></i>清空
+                                </button>
+                                <button class="btn btn-outline-light btn-sm" onclick="toggleAutoScroll()">
+                                    <i class="fas fa-arrows-alt-v me-1"></i>自动滚动
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="log-container" class="log-container">
+                            <div class="text-center text-muted p-4">
+                                <i class="fas fa-spinner fa-spin me-2"></i>等待日志数据...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service URLs Modal -->
+    <div class="modal fade" id="serviceUrlsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-link me-2"></i>服务访问链接
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" id="service-urls-list">
+                        <!-- URLs will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Scenarios Modal -->
+    <div class="modal fade" id="demoScenariosModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-theater-masks me-2"></i>演示场景
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="demo-scenarios-list">
+                        <!-- Scenarios will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay d-none">
+        <div class="loading-content">
+            <div class="spinner-border text-primary mb-3" role="status"></div>
+            <h5>操作进行中...</h5>
+            <p class="text-muted">请稍候，系统正在处理您的请求</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/demo_app.js') }}"></script>
+</body>
+</html>

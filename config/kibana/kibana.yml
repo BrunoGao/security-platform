@@ -1,0 +1,44 @@
+server.name: security-kibana
+server.host: "0.0.0.0"
+server.port: 5601
+
+# Elasticsearch配置
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.username: ""
+elasticsearch.password: ""
+
+# 监控设置
+monitoring.ui.container.elasticsearch.enabled: true
+
+# 国际化设置
+i18n.locale: "zh-CN"
+
+# 日志设置
+logging.dest: stdout
+logging.silent: false
+logging.quiet: false
+logging.verbose: false
+
+# 安全设置
+server.ssl.enabled: false
+
+# 数据目录
+path.data: /usr/share/kibana/data
+
+# 插件设置
+xpack.security.enabled: false
+xpack.monitoring.enabled: true
+
+# UI设置
+server.maxPayloadBytes: 1048576
+server.requestTimeout: 30000
+
+# 索引模式
+kibana.index: ".kibana"
+kibana.defaultAppId: "home"
+
+# 地图服务设置
+map.includeElasticMapsService: false
+
+# 可视化设置
+vis_type_vega.enableExternalUrls: true

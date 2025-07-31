@@ -1,0 +1,47 @@
+INFO:     Started server process [4484]
+INFO:     Waiting for application startup.
+INFO:src.apis.security_api:Security Analysis Service started successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49938 - "GET /health HTTP/1.1" 200 OK
+INFO:src.services.security_analysis_service:Starting analysis for event 98a9b949-9d5e-4eb6-aedb-86577b3cbf88
+INFO:src.services.security_analysis_service:Step 1: Entity Recognition for event 98a9b949-9d5e-4eb6-aedb-86577b3cbf88
+INFO:src.services.security_analysis_service:Extracted 3 entities from event 98a9b949-9d5e-4eb6-aedb-86577b3cbf88
+INFO:src.services.security_analysis_service:Step 2: Connection Expansion for event 98a9b949-9d5e-4eb6-aedb-86577b3cbf88
+INFO:src.services.security_analysis_service:Expanded 0 connections across 3 entities
+INFO:src.services.security_analysis_service:Step 3: Risk Scoring for event 98a9b949-9d5e-4eb6-aedb-86577b3cbf88
+INFO:src.engines.risk_scoring:Entity 192.168.1.100 risk score calculated: 19.35
+INFO:src.engines.risk_scoring:Entity 103.45.67.89 risk score calculated: 20.51
+INFO:src.engines.risk_scoring:Entity john.doe risk score calculated: 14.80
+INFO:src.services.security_analysis_service:Calculated risk scores for 3 entities, max score: 20.51
+INFO:src.services.security_analysis_service:Analysis completed for event 98a9b949-9d5e-4eb6-aedb-86577b3cbf88 in 0.00s
+INFO:     127.0.0.1:54645 - "POST /api/v1/analyze/event HTTP/1.1" 200 OK
+INFO:     192.168.1.138:62188 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.1.138:62188 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62534 - "GET /health HTTP/1.1" 200 OK
+INFO:src.services.security_analysis_service:Starting analysis for event 5fbebfb1-e4d2-4184-b5ab-4e2a7c1beef4
+INFO:src.services.security_analysis_service:Step 1: Entity Recognition for event 5fbebfb1-e4d2-4184-b5ab-4e2a7c1beef4
+INFO:src.services.security_analysis_service:Extracted 3 entities from event 5fbebfb1-e4d2-4184-b5ab-4e2a7c1beef4
+INFO:src.services.security_analysis_service:Step 2: Connection Expansion for event 5fbebfb1-e4d2-4184-b5ab-4e2a7c1beef4
+INFO:src.services.security_analysis_service:Expanded 0 connections across 3 entities
+INFO:src.services.security_analysis_service:Step 3: Risk Scoring for event 5fbebfb1-e4d2-4184-b5ab-4e2a7c1beef4
+INFO:src.engines.risk_scoring:Entity 192.168.1.100 risk score calculated: 19.35
+INFO:src.engines.risk_scoring:Entity 103.45.67.89 risk score calculated: 20.51
+INFO:src.engines.risk_scoring:Entity test_user risk score calculated: 14.80
+INFO:src.services.security_analysis_service:Calculated risk scores for 3 entities, max score: 20.51
+INFO:src.services.security_analysis_service:Analysis completed for event 5fbebfb1-e4d2-4184-b5ab-4e2a7c1beef4 in 0.00s
+INFO:     127.0.0.1:63903 - "POST /api/v1/analyze/event HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65404 - "GET /health HTTP/1.1" 200 OK
+INFO:src.services.security_analysis_service:Starting analysis for event ff8ffa69-5b19-4e54-a4d1-c6b1c7e297e9
+INFO:src.services.security_analysis_service:Step 1: Entity Recognition for event ff8ffa69-5b19-4e54-a4d1-c6b1c7e297e9
+INFO:src.services.security_analysis_service:Extracted 3 entities from event ff8ffa69-5b19-4e54-a4d1-c6b1c7e297e9
+INFO:src.services.security_analysis_service:Step 2: Connection Expansion for event ff8ffa69-5b19-4e54-a4d1-c6b1c7e297e9
+INFO:src.services.security_analysis_service:Expanded 0 connections across 3 entities
+INFO:src.services.security_analysis_service:Step 3: Risk Scoring for event ff8ffa69-5b19-4e54-a4d1-c6b1c7e297e9
+INFO:src.engines.risk_scoring:Entity 192.168.1.100 risk score calculated: 19.35
+INFO:src.engines.risk_scoring:Entity 103.45.67.89 risk score calculated: 20.51
+INFO:src.engines.risk_scoring:Entity test_user risk score calculated: 14.80
+INFO:src.services.security_analysis_service:Calculated risk scores for 3 entities, max score: 20.51
+INFO:src.services.security_analysis_service:Analysis completed for event ff8ffa69-5b19-4e54-a4d1-c6b1c7e297e9 in 0.00s
+INFO:     127.0.0.1:65407 - "POST /api/v1/analyze/event HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65410 - "GET /health HTTP/1.1" 200 OK

@@ -1,0 +1,37 @@
+cluster.name: "security-cluster"
+network.host: 0.0.0.0
+node.name: "security-node-1"
+node.master: true
+node.data: true
+node.ingest: true
+
+# 内存设置
+bootstrap.memory_lock: true
+
+# 发现设置
+discovery.type: single-node
+
+# 安全设置
+xpack.security.enabled: false
+xpack.monitoring.collection.enabled: true
+
+# 索引设置
+action.auto_create_index: true
+action.destructive_requires_name: true
+
+# 日志设置
+logger.org.elasticsearch.discovery: DEBUG
+
+# HTTP设置
+http.port: 9200
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.cors.allow-headers: "Authorization, X-Requested-With, Content-Length, Content-Type"
+
+# 线程池设置
+thread_pool.write.queue_size: 1000
+thread_pool.search.queue_size: 1000
+
+# 索引模板设置
+indices.memory.index_buffer_size: 20%
+indices.memory.min_index_buffer_size: 96mb

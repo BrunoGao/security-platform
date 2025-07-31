@@ -1,0 +1,20 @@
+{
+    "demo_mode": true,
+    "auto_scenarios": [
+        {
+            "name": "lateral_movement",
+            "delay": 30,
+            "auto_run": false
+        },
+        {
+            "name": "brute_force", 
+            "delay": 60,
+            "auto_run": false
+        }
+    ],
+    "demo_settings": {
+        "show_real_data": false,
+        "simulate_high_load": false,
+        "enable_notifications": true
+    }
+}

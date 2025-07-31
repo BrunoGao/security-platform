@@ -1,0 +1,22 @@
+ flink-jobmanager Skipped - Image is already being pulled by flink-taskmanager 
+ elasticsearch Pulling 
+ mysql Pulling 
+ kafka Pulling 
+ kafka-ui Pulling 
+ flink-taskmanager Pulling 
+ clickhouse Pulling 
+ redis Pulling 
+ kibana Pulling 
+ zookeeper Pulling 
+ neo4j Pulling 
+ flink-taskmanager Error pull access denied for registry.cn-hangzhou.aliyuncs.com/library/flink, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+ kibana  Interrupted
+ clickhouse  Interrupted
+ neo4j  Interrupted
+ kafka  Interrupted
+ redis  Interrupted
+ zookeeper  Interrupted
+ kafka-ui  Interrupted
+ elasticsearch  Interrupted
+ mysql  Interrupted
+Error response from daemon: pull access denied for registry.cn-hangzhou.aliyuncs.com/library/flink, repository does not exist or may require 'docker login': denied: requested access to the resource is denied

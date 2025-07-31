@@ -1,0 +1,411 @@
+/* 安全告警分析系统演示界面样式 */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a1a !important;
+    overflow-x: hidden;
+}
+
+/* 导航栏样式 */
+.navbar.bg-gradient {
+    background: var(--bg-gradient) !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+/* 卡片样式 */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    font-weight: 600;
+}
+
+/* 按钮样式 */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+}
+
+/* 进度圆环 */
+.progress-circle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--primary-color) 0%, var(--primary-color) var(--percent, 0%), #333 var(--percent, 0%), #333 100%);
+    border-radius: 50%;
+}
+
+.progress-circle::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background: #1a1a1a;
+    border-radius: 50%;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 10;
+    color: #fff;
+}
+
+/* 日志容器 */
+.log-container {
+    height: 400px;
+    overflow-y: auto;
+    background: #0d1117;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    padding: 15px;
+}
+
+.log-entry {
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    border-left: 3px solid;
+    font-size: 0.9rem;
+    animation: slideInRight 0.3s ease;
+}
+
+.log-entry.log-info {
+    background: rgba(13, 202, 240, 0.1);
+    border-color: var(--info-color);
+    color: var(--info-color);
+}
+
+.log-entry.log-success {
+    background: rgba(25, 135, 84, 0.1);
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.log-entry.log-warning {
+    background: rgba(255, 193, 7, 0.1);
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+}
+
+.log-entry.log-error {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.log-timestamp {
+    color: #6c757d;
+    font-size: 0.8rem;
+    margin-right: 10px;
+}
+
+/* 服务状态指示器 */
+.service-status {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.service-status.status-running {
+    background: rgba(25, 135, 84, 0.2);
+    border: 2px solid var(--success-color);
+}
+
+.service-status.status-stopped {
+    background: rgba(220, 53, 69, 0.2);
+    border: 2px solid var(--danger-color);
+}
+
+.service-status.status-unknown {
+    background: rgba(108, 117, 125, 0.2);
+    border: 2px solid var(--secondary-color);
+}
+
+.service-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.service-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.service-state {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 状态徽章 */
+.badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+.badge.bg-success {
+    background: var(--success-color) !important;
+    animation: pulse 2s infinite;
+}
+
+.badge.bg-danger {
+    background: var(--danger-color) !important;
+    animation: pulse 2s infinite;
+}
+
+.badge.bg-warning {
+    background: var(--warning-color) !important;
+    color: #000 !important;
+}
+
+/* 加载覆盖层 */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-content {
+    text-align: center;
+    background: #212529;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* 心跳动画 */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.fa-heartbeat {
+    animation: heartbeat 2s infinite;
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* 滑入动画 */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 场景卡片样式 */
+.scenario-card {
+    background: #2d3748;
+    border: 2px solid #4a5568;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.scenario-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.3);
+}
+
+.scenario-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--info-color);
+}
+
+.scenario-description {
+    color: #a0aec0;
+    margin-bottom: 15px;
+}
+
+.scenario-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+/* URL链接卡片 */
+.url-card {
+    background: #2d3748;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.url-card:hover {
+    background: #4a5568;
+    transform: translateX(5px);
+}
+
+.url-card a {
+    color: var(--info-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.url-card a:hover {
+    color: #fff;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 15px;
+    }
+    
+    .progress-circle {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .progress-circle::after {
+        top: 12px;
+        left: 12px;
+        width: 56px;
+        height: 56px;
+    }
+    
+    .btn-lg {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    
+    .log-container {
+        height: 300px;
+    }
+}
+
+/* 自定义滚动条 */
+.log-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.log-container::-webkit-scrollbar-track {
+    background: #2d3748;
+    border-radius: 4px;
+}
+
+.log-container::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 4px;
+}
+
+.log-container::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+}
+
+/* 状态指示灯 */
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.online {
+    background: var(--success-color);
+}
+
+.status-indicator.offline {
+    background: var(--danger-color);
+}
+
+.status-indicator.unknown {
+    background: var(--secondary-color);
+}
