@@ -1,0 +1,95 @@
+[2025-08-06 19:11:44] [INFO] 开始全量启动安全告警分析系统...
+[2025-08-06 19:11:44] [INFO] 启动完整安全分析系统...
+[2025-08-06 19:11:44] [INFO] 操作系统: macOS
+[2025-08-06 19:11:44] [INFO] Docker已安装: 28.2.2
+[2025-08-06 19:11:44] [INFO] Docker服务运行正常
+[2025-08-06 19:11:44] [INFO] Docker Compose已安装: v2.36.2
+[2025-08-06 19:11:44] [INFO] Python3已安装: 3.13.5
+[2025-08-06 19:11:44] [INFO] pip已安装
+[2025-08-06 19:11:44] [INFO] curl 已安装
+[2025-08-06 19:11:44] [INFO] jq 已安装
+[2025-08-06 19:11:44] [INFO] lsof 已安装
+[2025-08-06 19:11:44] [INFO] ps 已安装
+[2025-08-06 19:11:44] [INFO] 文件检查: docker-compose.yml 存在
+[2025-08-06 19:11:44] [INFO] 文件检查: src/apis/security_api.py 存在
+[2025-08-06 19:11:44] [INFO] 文件检查: requirements.txt 存在
+[2025-08-06 19:11:44] [INFO] 系统内存: 192GB
+[2025-08-06 19:11:44] [INFO] 可用内存: 13GB
+[2025-08-06 19:11:44] [INFO] 可用磁盘空间: 3000GB
+[2025-08-06 19:11:45] [WARN] 已占用端口: 8000 5601 7474 8123 9200 6379 3306 9092 2181
+[2025-08-06 19:11:45] [INFO] 检查端口占用进程...
+[2025-08-06 19:11:45] [INFO] 端口 8000 被用户进程占用，可以终止
+[2025-08-06 19:11:45] [INFO] 端口 5601 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 7474 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 8123 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 9200 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 6379 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 3306 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 9092 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 端口 2181 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-06 19:11:45] [INFO] 停止端口 8000 上的进程 /opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python (PID: 48136)
+[2025-08-06 19:11:46] [INFO] 停止端口 8000 上的进程 unknown (PID: 48143)
+[2025-08-06 19:11:47] [WARN] 系统端口 5601 7474 8123 9200 6379 3306 9092 2181 被占用，将使用不同端口启动服务
+[2025-08-06 19:11:49] [WARN] 未在虚拟环境中运行
+[2025-08-06 19:11:49] [INFO] 激活虚拟环境...
+[2025-08-06 19:11:49] [INFO] 虚拟环境已激活: /Users/brunogao/work/tools/security-platform/venv
+[2025-08-06 19:11:49] [INFO] 安装Python依赖...
+[2025-08-06 19:11:49] [INFO] 使用虚拟环境pip: /Users/brunogao/work/tools/security-platform/venv/bin/pip
+[2025-08-06 19:11:50] [INFO] Python依赖安装完成
+[2025-08-06 19:11:50] [INFO] 设置演示环境...
+[2025-08-06 19:11:50] [INFO] 演示环境已准备
+[2025-08-06 19:11:50] [INFO] 环境配置完成
+[2025-08-06 19:11:50] [INFO] 检查Docker服务状态...
+[2025-08-06 19:11:51] [INFO] 检测到 11/11 个服务正在运行
+[2025-08-06 19:11:51] [INFO] 所有服务已经在运行，跳过启动步骤
+[2025-08-06 19:11:51] [INFO] 所有服务已经在运行
+[2025-08-06 19:11:51] [INFO] 等待服务就绪...
+[2025-08-06 19:12:06] [INFO] 配置 Elasticsearch...
+[2025-08-06 19:12:06] [INFO] Elasticsearch 配置完成
+[2025-08-06 19:12:06] [INFO] 配置 Neo4j...
+[2025-08-06 19:12:06] [INFO] Neo4j 配置完成
+[2025-08-06 19:12:06] [INFO] 配置 ClickHouse...
+[2025-08-06 19:12:06] [INFO] ClickHouse 配置完成
+[2025-08-06 19:12:06] [INFO] 配置 Kafka...
+[2025-08-06 19:12:55] [INFO] Kafka 配置完成
+[2025-08-06 19:12:55] [INFO] 配置 Kibana...
+[2025-08-06 19:12:55] [INFO] Kibana 配置完成
+[2025-08-06 19:12:55] [INFO] 服务配置完成
+[2025-08-06 19:12:55] [INFO] 运行系统验证测试...
+[2025-08-06 19:12:56] [INFO] 系统验证测试通过
+[2025-08-06 19:12:56] [INFO] 启动FastAPI服务...
+[2025-08-06 19:12:56] [INFO] 等待API服务启动...
+[2025-08-06 19:12:58] [INFO] API服务启动成功 (PID: 63041)
+[2025-08-06 19:12:58] [INFO] 准备演示数据...
+[2025-08-06 19:12:58] [INFO] 演示配置已生成
+[2025-08-06 19:12:58] [INFO] 启动Web演示管理界面...
+[2025-08-06 19:12:58] [INFO] 演示界面已启动 (PID: 63104)
+[2025-08-06 19:13:14] [WARN] 演示界面启动可能需要更多时间
+[2025-08-06 19:13:14] [INFO] 检查Docker服务健康状态...
+[2025-08-06 19:13:14] [WARN] zookeeper: 不健康 (zookeeper)
+[2025-08-06 19:13:14] [WARN] kafka: 不健康 (kafka)
+[2025-08-06 19:13:15] [WARN] elasticsearch: 不健康 (--)
+[2025-08-06 19:13:15] [WARN] kibana: 不健康 (--)
+[2025-08-06 19:13:15] [WARN] neo4j: 不健康 (-g)
+[2025-08-06 19:13:15] [WARN] clickhouse: 不健康 (clickhouse)
+[2025-08-06 19:13:15] [WARN] mysql: 不健康 (mysql)
+[2025-08-06 19:13:15] [WARN] redis: 不健康 (redis)
+[2025-08-06 19:13:15] [WARN] flink-jobmanager: 不健康 (flink-jobmanager)
+[2025-08-06 19:13:15] [WARN] flink-taskmanager: 不健康 (flink-taskmanager)
+[2025-08-06 19:13:15] [WARN] kafka-ui: 不健康 (-c)
+[2025-08-06 19:13:15] [INFO] 执行HTTP健康检查...
+[2025-08-06 19:13:15] [INFO] API服务: HTTP检查通过
+[2025-08-06 19:13:15] [INFO] Elasticsearch: HTTP检查通过
+[2025-08-06 19:13:15] [INFO] Kibana: HTTP检查通过
+[2025-08-06 19:13:15] [INFO] Neo4j: HTTP检查通过
+[2025-08-06 19:13:15] [INFO] ClickHouse: HTTP检查通过
+[2025-08-06 19:13:15] [INFO] Kafka UI: HTTP检查通过
+[2025-08-06 19:13:15] [INFO] Web演示界面: 重试HTTP检查 (1/3)
+[2025-08-06 19:13:20] [INFO] Web演示界面: 重试HTTP检查 (2/3)
+[2025-08-06 19:13:25] [WARN] Web演示界面: HTTP检查失败
+[2025-08-06 19:13:25] [WARN] 部分健康检查失败: zookeeper kafka elasticsearch kibana neo4j clickhouse mysql redis flink-jobmanager flink-taskmanager kafka-ui Web演示界面
+[2025-08-06 19:13:25] [INFO] 创建监控面板...
+[2025-08-06 19:13:25] [INFO] 监控面板创建完成: /Users/brunogao/work/tools/security-platform/monitoring_dashboard.html
+[2025-08-06 19:13:25] [INFO] 创建管理脚本...
+[2025-08-06 19:13:25] [INFO] 停止脚本创建完成: stop_all.sh
+[2025-08-06 19:13:28] [SUCCESS] 统一全量系统启动完成

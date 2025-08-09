@@ -81,7 +81,7 @@ class SystemManager:
                 cwd=cwd,
                 capture_output=True, 
                 text=True, 
-                timeout=300
+                timeout=30
             )
             
             duration = time.time() - start_time
@@ -211,8 +211,8 @@ class SystemManager:
         start_time = time.time()
         
         try:
-            # 检查Docker是否运行
-            docker_check = self.execute_command('docker info')
+            # 检查Docker是否运行（快速检查）
+            docker_check = self.execute_command('docker version --format "{{.Server.Version}}"')
             if not docker_check['success']:
                 result = {'docker_running': False, 'services': {}}
                 self._docker_status_cache = result
@@ -570,7 +570,7 @@ def run_demo_scenario(scenario_id):
                 response = requests.post(
                     'http://localhost:8000/api/v1/analyze/event',
                     json=test_event,
-                    timeout=10
+                    timeout=30
                 )
                 
                 if response.status_code == 200:

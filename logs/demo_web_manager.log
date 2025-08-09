@@ -1,0 +1,221 @@
+2025-08-01 17:33:33,275 - werkzeug - WARNING - Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+🚀 启动安全告警分析系统演示管理界面...
+📱 访问地址: http://localhost:5115
+ * Serving Flask app 'demo_web_manager'
+ * Debug mode: off
+2025-08-01 17:33:33,283 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5115
+ * Running on http://192.168.1.83:5115
+2025-08-01 17:33:33,284 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-01 17:33:33,490 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:33:33] "GET /socket.io/?EIO=4&transport=polling&t=PXa-iUl HTTP/1.1" 200 -
+2025-08-01 17:33:33,501 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:33:33] "POST /socket.io/?EIO=4&transport=polling&t=PXa-iUv&sid=Uhto6KtIXMDKGl5sAAAA HTTP/1.1" 200 -
+2025-08-01 17:33:33,502 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:33:33] "GET /socket.io/?EIO=4&transport=polling&t=PXa-iUw&sid=Uhto6KtIXMDKGl5sAAAA HTTP/1.1" 200 -
+2025-08-01 17:33:36,634 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:33:36] "GET /socket.io/?EIO=4&transport=polling&t=PXa-jFp HTTP/1.1" 200 -
+2025-08-01 17:33:36,640 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:33:36] "POST /socket.io/?EIO=4&transport=polling&t=PXa-jFy&sid=vHa35QJ2nxfx46PhAAAC HTTP/1.1" 200 -
+2025-08-01 17:33:36,642 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:33:36] "GET /socket.io/?EIO=4&transport=polling&t=PXa-jFz&sid=vHa35QJ2nxfx46PhAAAC HTTP/1.1" 200 -
+2025-08-01 17:33:42,388 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:33:42,535 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:34:22,396 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:34:42,390 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:34:46,639 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:35:02,389 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:35:22,390 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:38:42,404 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 17:38:42,404 - __main__ - WARNING - Docker未运行
+2025-08-01 17:38:42,411 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:38:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:38:42,416 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:38:42,546 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 17:38:42,546 - __main__ - WARNING - Docker未运行
+2025-08-01 17:38:42,549 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:38:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:39:22,418 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:39:22,418 - __main__ - WARNING - Docker未运行
+2025-08-01 17:39:22,422 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:39:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:39:22,426 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:39:42,411 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:39:42,412 - __main__ - WARNING - Docker未运行
+2025-08-01 17:39:42,421 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:39:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:39:42,425 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:39:46,658 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:39:46,658 - __main__ - WARNING - Docker未运行
+2025-08-01 17:39:46,667 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:39:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:39:46,673 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:40:02,411 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:40:02,412 - __main__ - WARNING - Docker未运行
+2025-08-01 17:40:02,418 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:40:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:40:02,423 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:40:22,411 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:40:22,412 - __main__ - WARNING - Docker未运行
+2025-08-01 17:40:22,421 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:40:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:40:22,425 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:43:42,434 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:43:42,435 - __main__ - WARNING - Docker未运行
+2025-08-01 17:43:42,441 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:43:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:43:42,445 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:44:22,444 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:44:22,445 - __main__ - WARNING - Docker未运行
+2025-08-01 17:44:22,451 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:44:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:44:22,456 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:44:42,444 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:44:42,445 - __main__ - WARNING - Docker未运行
+2025-08-01 17:44:42,452 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:44:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:44:42,457 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:44:46,693 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:44:46,694 - __main__ - WARNING - Docker未运行
+2025-08-01 17:44:46,701 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:44:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:44:46,706 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:45:02,441 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:45:02,442 - __main__ - WARNING - Docker未运行
+2025-08-01 17:45:02,449 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:45:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:45:02,453 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:45:22,446 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:45:22,447 - __main__ - WARNING - Docker未运行
+2025-08-01 17:45:22,454 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:45:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:45:22,459 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:48:42,464 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:48:42,465 - __main__ - WARNING - Docker未运行
+2025-08-01 17:48:42,469 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:48:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:48:42,474 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:49:22,472 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:49:22,473 - __main__ - WARNING - Docker未运行
+2025-08-01 17:49:22,477 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:49:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:49:22,480 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:49:42,477 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:49:42,478 - __main__ - WARNING - Docker未运行
+2025-08-01 17:49:42,486 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:49:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:49:42,490 - __main__ - INFO - 获取系统信息...
+2025-08-01 17:49:42,491 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 0.0%, 内存: 80.8%, 磁盘: 28.0%)
+2025-08-01 17:49:42,492 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:49:42] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 17:49:42,495 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:49:46,724 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:49:46,724 - __main__ - WARNING - Docker未运行
+2025-08-01 17:49:46,730 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:49:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:49:46,735 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:50:02,472 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:50:02,473 - __main__ - WARNING - Docker未运行
+2025-08-01 17:50:02,480 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:50:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:50:02,485 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:50:22,479 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 17:50:22,480 - __main__ - WARNING - Docker未运行
+2025-08-01 17:50:22,487 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:50:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:50:22,490 - __main__ - INFO - 获取系统信息...
+2025-08-01 17:50:22,491 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 0.0%, 内存: 80.9%, 磁盘: 28.0%)
+2025-08-01 17:50:22,491 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:50:22] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 17:50:22,494 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:53:42,451 - __main__ - ERROR - 命令执行超时: docker info (耗时: 299.98s)
+2025-08-01 17:53:42,452 - __main__ - WARNING - Docker未运行
+2025-08-01 17:53:42,460 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:53:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:53:42,465 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:54:22,457 - __main__ - ERROR - 命令执行超时: docker info (耗时: 299.98s)
+2025-08-01 17:54:22,458 - __main__ - WARNING - Docker未运行
+2025-08-01 17:54:22,464 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:54:22,469 - __main__ - INFO - 获取系统信息...
+2025-08-01 17:54:22,470 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 0.0%, 内存: 80.8%, 磁盘: 28.0%)
+2025-08-01 17:54:22,471 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:22] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 17:54:22,473 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:22] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 17:54:22,475 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:54:42,471 - __main__ - ERROR - 命令执行超时: docker info (耗时: 299.98s)
+2025-08-01 17:54:42,472 - __main__ - WARNING - Docker未运行
+2025-08-01 17:54:42,475 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:54:42,479 - __main__ - INFO - 获取系统信息...
+2025-08-01 17:54:42,480 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 11.4%, 内存: 80.8%, 磁盘: 28.0%)
+2025-08-01 17:54:42,480 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:42] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 17:54:42,483 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:54:46,711 - __main__ - ERROR - 命令执行超时: docker info (耗时: 299.97s)
+2025-08-01 17:54:46,712 - __main__ - WARNING - Docker未运行
+2025-08-01 17:54:46,718 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:54:46,723 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:54:46] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 17:54:46,726 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:55:02,462 - __main__ - ERROR - 命令执行超时: docker info (耗时: 299.98s)
+2025-08-01 17:55:02,463 - __main__ - WARNING - Docker未运行
+2025-08-01 17:55:02,468 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:55:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:55:02,473 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:55:22,468 - __main__ - ERROR - 命令执行超时: docker info (耗时: 299.97s)
+2025-08-01 17:55:22,469 - __main__ - WARNING - Docker未运行
+2025-08-01 17:55:22,475 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:55:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:55:22,479 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:58:42,478 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 17:58:42,478 - __main__ - WARNING - Docker未运行
+2025-08-01 17:58:42,485 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:58:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:58:42,490 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:59:22,485 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 17:59:22,486 - __main__ - WARNING - Docker未运行
+2025-08-01 17:59:22,494 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:59:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:59:22,498 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:59:42,496 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 17:59:42,497 - __main__ - WARNING - Docker未运行
+2025-08-01 17:59:42,504 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:59:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:59:42,509 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 17:59:46,739 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 17:59:46,740 - __main__ - WARNING - Docker未运行
+2025-08-01 17:59:46,745 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 17:59:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 17:59:46,748 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:00:02,486 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:00:02,487 - __main__ - WARNING - Docker未运行
+2025-08-01 18:00:02,495 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:00:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:00:02,500 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:00:22,493 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:00:22,493 - __main__ - WARNING - Docker未运行
+2025-08-01 18:00:22,499 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:00:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:00:22,504 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:03:42,504 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:03:42,505 - __main__ - WARNING - Docker未运行
+2025-08-01 18:03:42,511 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:03:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:03:42,517 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:04:22,514 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 18:04:22,514 - __main__ - WARNING - Docker未运行
+2025-08-01 18:04:22,520 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:04:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:04:22,524 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:04:42,523 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:04:42,523 - __main__ - WARNING - Docker未运行
+2025-08-01 18:04:42,527 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:04:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:04:42,531 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:04:46,759 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:04:46,760 - __main__ - WARNING - Docker未运行
+2025-08-01 18:04:46,766 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:04:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:04:46,770 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:05:02,512 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:05:02,513 - __main__ - WARNING - Docker未运行
+2025-08-01 18:05:02,518 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:05:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:05:02,523 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:05:22,518 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:05:22,519 - __main__ - WARNING - Docker未运行
+2025-08-01 18:05:22,523 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:05:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:05:22,528 - __main__ - INFO - 获取系统信息...
+2025-08-01 18:05:22,528 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 13.4%, 内存: 81.0%, 磁盘: 28.0%)
+2025-08-01 18:05:22,529 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:05:22] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 18:05:22,531 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:08:42,532 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 18:08:42,533 - __main__ - WARNING - Docker未运行
+2025-08-01 18:08:42,540 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:08:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:08:42,544 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:09:22,537 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:09:22,538 - __main__ - WARNING - Docker未运行
+2025-08-01 18:09:22,545 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:09:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:09:22,550 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:09:42,544 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:09:42,545 - __main__ - WARNING - Docker未运行
+2025-08-01 18:09:42,552 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:09:42] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:09:42,556 - __main__ - INFO - 获取系统信息...
+2025-08-01 18:09:42,557 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 13.5%, 内存: 81.0%, 磁盘: 28.0%)
+2025-08-01 18:09:42,557 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:09:42] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 18:09:42,560 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:09:46,783 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:09:46,784 - __main__ - WARNING - Docker未运行
+2025-08-01 18:09:46,789 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:09:46] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:09:46,795 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:10:02,538 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.02s)
+2025-08-01 18:10:02,539 - __main__ - WARNING - Docker未运行
+2025-08-01 18:10:02,546 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:10:02] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:10:02,551 - __main__ - INFO - 获取系统信息...
+2025-08-01 18:10:02,551 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 0.0%, 内存: 81.0%, 磁盘: 28.0%)
+2025-08-01 18:10:02,552 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:10:02] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 18:10:02,555 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:10:02] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 18:10:02,557 - __main__ - INFO - 执行命令: docker info (工作目录: None)
+2025-08-01 18:10:22,544 - __main__ - ERROR - 命令执行超时: docker info (耗时: 300.01s)
+2025-08-01 18:10:22,545 - __main__ - WARNING - Docker未运行
+2025-08-01 18:10:22,552 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:10:22] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-01 18:10:22,557 - __main__ - INFO - 获取系统信息...
+2025-08-01 18:10:22,558 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 11.5%, 内存: 81.0%, 磁盘: 28.0%)
+2025-08-01 18:10:22,559 - werkzeug - INFO - 127.0.0.1 - - [01/Aug/2025 18:10:22] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-01 18:10:22,561 - __main__ - INFO - 执行命令: docker info (工作目录: None)

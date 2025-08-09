@@ -1,0 +1,50 @@
+🔍 配置Elasticsearch索引和模板...
+⏳ 等待Elasticsearch服务启动...
+✅ Elasticsearch服务已就绪
+📝 创建安全日志索引模板...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2330  100    21  100  2309   8174   877k --:--:-- --:--:-- --:--:-- 1137k
+{"acknowledged":true}
+🚨 创建安全告警索引模板...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  1655  100    21  100  1634   9962   756k --:--:-- --:--:-- --:--:--  808k
+{"acknowledged":true}
+🕸️  创建实体关系索引模板...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  1706  100    21  100  1685  10552   826k --:--:-- --:--:-- --:--:-- 1666k
+{"acknowledged":true}
+📅 创建当日索引: 2025.08.06
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   491  100   437  100    54  61161   7557 --:--:-- --:--:-- --:--:-- 70142
+{"error":{"root_cause":[{"type":"resource_already_exists_exception","reason":"index [security-logs-2025.08.06/Ba02skm8QpWLLtlZXJHhLQ] already exists","index_uuid":"Ba02skm8QpWLLtlZXJHhLQ","index":"security-logs-2025.08.06"}],"type":"resource_already_exists_exception","reason":"index [security-logs-2025.08.06/Ba02skm8QpWLLtlZXJHhLQ] already exists","index_uuid":"Ba02skm8QpWLLtlZXJHhLQ","index":"security-logs-2025.08.06"},"status":400}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   501  100   445  100    56   227k  29350 --:--:-- --:--:-- --:--:--  489k
+{"error":{"root_cause":[{"type":"resource_already_exists_exception","reason":"index [security-alerts-2025.08.06/z2mnzFWnTYi00_6echzmtQ] already exists","index_uuid":"z2mnzFWnTYi00_6echzmtQ","index":"security-alerts-2025.08.06"}],"type":"resource_already_exists_exception","reason":"index [security-alerts-2025.08.06/z2mnzFWnTYi00_6echzmtQ] already exists","index_uuid":"z2mnzFWnTYi00_6echzmtQ","index":"security-alerts-2025.08.06"},"status":400}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   511  100   453  100    58   265k  34772 --:--:-- --:--:-- --:--:--  499k
+{"error":{"root_cause":[{"type":"resource_already_exists_exception","reason":"index [security-entities-2025.08.06/6cnDyw7oTaSVhDJQTAcXag] already exists","index_uuid":"6cnDyw7oTaSVhDJQTAcXag","index":"security-entities-2025.08.06"}],"type":"resource_already_exists_exception","reason":"index [security-entities-2025.08.06/6cnDyw7oTaSVhDJQTAcXag] already exists","index_uuid":"6cnDyw7oTaSVhDJQTAcXag","index":"security-entities-2025.08.06"},"status":400}
+🔄 配置索引生命周期策略...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  1158  100   546  100   612   239k   268k --:--:-- --:--:-- --:--:--  565k
+{"error":{"root_cause":[{"type":"x_content_parse_exception","reason":"[30:9] [phases] failed to parse field [delete]"}],"type":"x_content_parse_exception","reason":"[30:9] [put_lifecycle_request] failed to parse field [policy]","caused_by":{"type":"x_content_parse_exception","reason":"[30:9] [lifecycle_policy] failed to parse field [phases]","caused_by":{"type":"x_content_parse_exception","reason":"[30:9] [phases] failed to parse field [delete]","caused_by":{"type":"illegal_argument_exception","reason":"Required [actions]"}}}},"status":400}
+✅ Elasticsearch配置完成！
+
+📊 索引状态:
+health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size dataset.size
+yellow open   security-alerts-2025.08.06   z2mnzFWnTYi00_6echzmtQ   1   1          0            0       249b           249b         249b
+yellow open   security-logs-2025.08.06     Ba02skm8QpWLLtlZXJHhLQ   2   1          0            0       498b           498b         498b
+yellow open   security-entities-2025.08.06 6cnDyw7oTaSVhDJQTAcXag   2   1          0            0       498b           498b         498b
+yellow open   security-entities-2025.08.05 eXsM9XK5TcCTBvXRXrxC2A   2   1          0            0       498b           498b         498b
+yellow open   security-alerts-2025.08.05   kc4yh0m7R829V-LWBaqTsw   1   1          0            0       249b           249b         249b
+yellow open   security-logs-2025.08.05     tmrpGbNQQg6nUGYq7tGIWA   2   1          0            0       498b           498b         498b
+
+📝 模板列表:
+name                       index_patterns        order version composed_of
+security-alerts-template   [security-alerts-*]   1             []
+security-logs-template     [security-logs-*]     1             []
+security-entities-template [security-entities-*] 1             []

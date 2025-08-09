@@ -165,11 +165,11 @@ services:
 
   # Flink JobManager - 流处理
   flink-jobmanager:
-    image: registry.cn-hangzhou.aliyuncs.com/library/flink:1.14.0-scala_2.11
+    image: apache/flink:1.17.0
     hostname: flink-jobmanager
     container_name: security-flink-jobmanager
     ports:
-      - "8081:8081"
+      - "8083:8081"
     command: jobmanager
     environment:
       FLINK_PROPERTIES: |
@@ -186,7 +186,7 @@ services:
 
   # Flink TaskManager - 流处理工作节点
   flink-taskmanager:
-    image: registry.cn-hangzhou.aliyuncs.com/library/flink:1.14.0-scala_2.11
+    image: apache/flink:1.17.0
     hostname: flink-taskmanager
     container_name: security-flink-taskmanager
     depends_on:
@@ -262,4 +262,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
+        - subnet: 172.25.0.0/16

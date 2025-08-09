@@ -1,0 +1,44 @@
+📊 配置Kibana仪表板...
+⏳ 等待Kibana服务启动...
+✅ Kibana服务已就绪
+
+🔍 创建索引模式...
+创建索引模式: security-logs-*
+创建索引模式: security-alerts-*
+创建索引模式: security-entities-*
+
+📈 创建可视化图表...
+
+📋 创建仪表板...
+
+🚨 创建实时告警仪表板...
+
+🔍 创建保存的搜索...
+
+⏰ 配置Watcher告警...
+
+📊 验证仪表板配置...
+📋 验证索引模式:
+  ✅ security-logs-*
+  ✅ security-alerts-*
+  ✅ security-entities-*
+
+📈 验证可视化图表:
+
+📊 验证仪表板:
+  ✅ Security Analysis Overview
+  ✅ Security Alerts Dashboard
+
+✅ Kibana仪表板配置完成！
+
+🎯 可以通过以下链接访问仪表板：
+   - Kibana首页: http://localhost:5601
+   - 安全总览: http://localhost:5601/app/dashboards#/view/security-overview-dashboard
+   - 实时告警: http://localhost:5601/app/dashboards#/view/security-alerts-dashboard
+   - Discover: http://localhost:5601/app/discover
+
+📊 建议的使用流程：
+   1. 使用Discover探索原始数据
+   2. 查看安全总览仪表板了解整体态势
+   3. 监控实时告警仪表板跟踪新威胁
+   4. 使用保存的搜索快速定位高风险事件

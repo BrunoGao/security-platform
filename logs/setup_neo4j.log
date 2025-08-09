@@ -1,0 +1,191 @@
+🕸️  配置Neo4j数据库结构...
+⏳ 等待Neo4j服务启动...
+✅ Neo4j服务已就绪
+
+🏗️  创建节点标签和约束...
+执行: CREATE CONSTRAINT entity_id_unique IF NOT EXISTS FOR (e:Entity) REQUIRE e.entity_id IS UNIQUE;
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE CONSTRAINT ip_address_unique IF NOT EXISTS FOR (ip:IP) REQUIRE ip.address IS UNIQUE;
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE CONSTRAINT user_username_unique IF NOT EXISTS FOR (u:User) REQUIRE u.username IS UNIQUE;
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE CONSTRAINT file_path_unique IF NOT EXISTS FOR (f:File) REQUIRE f.path IS UNIQUE;
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE CONSTRAINT process_name_unique IF NOT EXISTS FOR (p:Process) REQUIRE p.name IS UNIQUE;
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE CONSTRAINT domain_name_unique IF NOT EXISTS FOR (d:Domain) REQUIRE d.name IS UNIQUE;
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}
+📋 创建索引...
+执行: CREATE INDEX entity_type_index IF NOT EXISTS FOR (e:Entity) ON (e.entity_type);
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE INDEX risk_score_index IF NOT EXISTS FOR (e:Entity) ON (e.risk_score);
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE INDEX timestamp_index IF NOT EXISTS FOR (e:Entity) ON (e.first_seen);
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}执行: CREATE INDEX threat_level_index IF NOT EXISTS FOR (e:Entity) ON (e.threat_level);
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":[],"data":[]}],"errors":[]}
+🎭 创建节点标签结构...
+执行: 
+MERGE (schema:Schema {name: 'SecurityEntities'})
+SET schema.created_at = datetime(),
+    schema.version = '1.0',
+    schema.description = 'Security entities relationship schema'
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}
+🔗 创建关系类型...
+执行: 
+MERGE (relationships:RelationshipTypes {name: 'SecurityRelationships'})
+SET relationships.types = [
+  'CONNECTS_TO',
+  'BELONGS_TO', 
+  'ACCESSES',
+  'EXECUTES',
+  'COMMUNICATES_WITH',
+  'CONTAINS',
+  'SPAWNS',
+  'MODIFIES',
+  'READS',
+  'WRITES',
+  'TRIGGERS',
+  'ASSOCIATED_WITH'
+],
+relationships.created_at = datetime()
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}
+🎯 创建示例安全实体和关系...
+执行: 
+// 创建示例IP实体
+MERGE (ip1:Entity:IP {entity_id: '192.168.1.100'})
+SET ip1.address = '192.168.1.100',
+    ip1.entity_type = 'ip',
+    ip1.is_private = true,
+    ip1.risk_score = 0.0,
+    ip1.threat_level = 'LOW',
+    ip1.first_seen = datetime(),
+    ip1.last_seen = datetime(),
+    ip1.status = 'active'
+
+// 创建示例用户实体
+MERGE (user1:Entity:User {entity_id: 'admin'})
+SET user1.username = 'admin',
+    user1.entity_type = 'user',
+    user1.is_system_account = true,
+    user1.risk_score = 0.0,
+    user1.threat_level = 'LOW',
+    user1.first_seen = datetime(),
+    user1.last_seen = datetime(),
+    user1.status = 'active'
+
+// 创建示例文件实体  
+MERGE (file1:Entity:File {entity_id: 'C:\Windows\System32\cmd.exe'})
+SET file1.path = 'C:\\Windows\\System32\\cmd.exe',
+    file1.entity_type = 'file',
+    file1.is_system_file = true,
+    file1.risk_score = 0.0,
+    file1.threat_level = 'LOW',
+    file1.first_seen = datetime(),
+    file1.last_seen = datetime(),
+    file1.status = 'active'
+
+// 创建示例进程实体
+MERGE (proc1:Entity:Process {entity_id: 'cmd.exe'})
+SET proc1.name = 'cmd.exe',
+    proc1.entity_type = 'process',
+    proc1.is_system_process = true,
+    proc1.risk_score = 0.0,
+    proc1.threat_level = 'LOW',
+    proc1.first_seen = datetime(),
+    proc1.last_seen = datetime(),
+    proc1.status = 'active'
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}执行: 
+// 创建实体间关系
+MATCH (user:User {username: 'admin'}), (ip:IP {address: '192.168.1.100'})
+MERGE (user)-[r:CONNECTS_FROM]->(ip)
+SET r.first_seen = datetime(),
+    r.last_seen = datetime(),
+    r.frequency = 1,
+    r.confidence = 0.9
+
+MATCH (user:User {username: 'admin'}), (proc:Process {name: 'cmd.exe'})
+MERGE (user)-[r:EXECUTES]->(proc)
+SET r.first_seen = datetime(),
+    r.last_seen = datetime(),
+    r.frequency = 1,
+    r.confidence = 0.95
+
+MATCH (proc:Process {name: 'cmd.exe'}), (file:File {path: 'C:\\Windows\\System32\\cmd.exe'})
+MERGE (proc)-[r:LOADS_FROM]->(file)
+SET r.first_seen = datetime(),
+    r.last_seen = datetime(),
+    r.confidence = 1.0
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}
+📊 创建统计和监控节点...
+执行: 
+MERGE (stats:Statistics {name: 'SecurityGraphStats'})
+SET stats.total_entities = 0,
+    stats.total_relationships = 0,
+    stats.last_updated = datetime(),
+    stats.high_risk_entities = 0,
+    stats.active_threats = 0
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}
+🔍 验证数据库结构...
+📋 节点统计:
+执行: 
+MATCH (n) 
+RETURN labels(n) as labels, count(n) as count 
+ORDER BY count DESC
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}
+🔗 关系统计:
+执行: 
+MATCH ()-[r]->() 
+RETURN type(r) as relationship_type, count(r) as count 
+ORDER BY count DESC
+
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[],"errors":[{"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"}]}
+📚 约束列表:
+执行: SHOW CONSTRAINTS
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":["id","name","type","entityType","labelsOrTypes","properties","ownedIndexId"],"data":[{"row":[14,"domain_name_unique","UNIQUENESS","NODE",["Domain"],["name"],13],"meta":[null,null,null,null,null,null,null]},{"row":[4,"entity_id_unique","UNIQUENESS","NODE",["Entity"],["entity_id"],3],"meta":[null,null,null,null,null,null,null]},{"row":[10,"file_path_unique","UNIQUENESS","NODE",["File"],["path"],9],"meta":[null,null,null,null,null,null,null]},{"row":[6,"ip_address_unique","UNIQUENESS","NODE",["IP"],["address"],5],"meta":[null,null,null,null,null,null,null]},{"row":[12,"process_name_unique","UNIQUENESS","NODE",["Process"],["name"],11],"meta":[null,null,null,null,null,null,null]},{"row":[8,"user_username_unique","UNIQUENESS","NODE",["User"],["username"],7],"meta":[null,null,null,null,null,null,null]}]}],"errors":[]}
+📇 索引列表:
+执行: SHOW INDEXES
+./scripts/setup_neo4j.sh: line 28: cypher-shell: command not found
+⚠️  Cypher查询失败，尝试使用HTTP API...
+{"results":[{"columns":["id","name","state","populationPercent","uniqueness","type","entityType","labelsOrTypes","properties","indexProvider"],"data":[{"row":[13,"domain_name_unique","ONLINE",100.0,"UNIQUE","BTREE","NODE",["Domain"],["name"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[3,"entity_id_unique","ONLINE",100.0,"UNIQUE","BTREE","NODE",["Entity"],["entity_id"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[15,"entity_type_index","ONLINE",100.0,"NONUNIQUE","BTREE","NODE",["Entity"],["entity_type"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[9,"file_path_unique","ONLINE",100.0,"UNIQUE","BTREE","NODE",["File"],["path"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[1,"index_343aff4e","ONLINE",100.0,"NONUNIQUE","LOOKUP","NODE",null,null,"token-lookup-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[2,"index_f7700477","ONLINE",100.0,"NONUNIQUE","LOOKUP","RELATIONSHIP",null,null,"token-lookup-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[5,"ip_address_unique","ONLINE",100.0,"UNIQUE","BTREE","NODE",["IP"],["address"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[11,"process_name_unique","ONLINE",100.0,"UNIQUE","BTREE","NODE",["Process"],["name"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[16,"risk_score_index","ONLINE",100.0,"NONUNIQUE","BTREE","NODE",["Entity"],["risk_score"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[18,"threat_level_index","ONLINE",100.0,"NONUNIQUE","BTREE","NODE",["Entity"],["threat_level"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[17,"timestamp_index","ONLINE",100.0,"NONUNIQUE","BTREE","NODE",["Entity"],["first_seen"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]},{"row":[7,"user_username_unique","ONLINE",100.0,"UNIQUE","BTREE","NODE",["User"],["username"],"native-btree-1.0"],"meta":[null,null,null,null,null,null,null,null,null,null]}]}],"errors":[]}
+✅ Neo4j数据库配置完成！
+
+🎯 可以通过以下方式访问Neo4j:
+   - Browser: http://localhost:7474
+   - Bolt: bolt://localhost:7687
+   - 用户名: neo4j
+   - 密码: security123

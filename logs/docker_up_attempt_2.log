@@ -1,0 +1,1 @@
+unable to get image 'redis:6.2-alpine': Cannot connect to the Docker daemon at unix:///Users/brunogao/.orbstack/run/docker.sock. Is the docker daemon running?

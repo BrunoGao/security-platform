@@ -1,0 +1,32 @@
+1.17.0: Pulling from apache/flink
+74ac377868f8: Already exists
+b9cabe75b440: Already exists
+9f3fc5460b4b: Pulling fs layer
+a7a805490095: Pulling fs layer
+db5745bee105: Pulling fs layer
+fba79cff8309: Pulling fs layer
+64f6612a694c: Pulling fs layer
+efa6375c6f58: Pulling fs layer
+19f0c6aad76e: Pulling fs layer
+6dd0f6c9088c: Pulling fs layer
+db5745bee105: Download complete
+6dd0f6c9088c: Download complete
+fba79cff8309: Download complete
+a7a805490095: Download complete
+64f6612a694c: Download complete
+efa6375c6f58: Download complete
+9f3fc5460b4b: Verifying Checksum
+9f3fc5460b4b: Download complete
+9f3fc5460b4b: Pull complete
+a7a805490095: Pull complete
+db5745bee105: Pull complete
+fba79cff8309: Pull complete
+64f6612a694c: Pull complete
+efa6375c6f58: Pull complete
+19f0c6aad76e: Verifying Checksum
+19f0c6aad76e: Download complete
+19f0c6aad76e: Pull complete
+6dd0f6c9088c: Pull complete
+Digest: sha256:dee658c6d24f934a3d2c16ec06e4dc02dbedabfefefb58b0fad86ef29d382a6d
+Status: Image is up to date for apache/flink:1.17.0
+docker.io/apache/flink:1.17.0

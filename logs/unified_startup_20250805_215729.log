@@ -1,0 +1,49 @@
+[2025-08-05 21:57:29] [INFO] 开始全量启动安全告警分析系统...
+[2025-08-05 21:57:29] [INFO] 启动完整安全分析系统...
+[2025-08-05 21:57:29] [INFO] 操作系统: macOS
+[2025-08-05 21:57:29] [INFO] Docker已安装: 28.2.2
+[2025-08-05 21:57:29] [INFO] Docker服务运行正常
+[2025-08-05 21:57:29] [INFO] Docker Compose已安装: v2.36.2
+[2025-08-05 21:57:29] [INFO] Python3已安装: 3.13.5
+[2025-08-05 21:57:29] [INFO] pip已安装
+[2025-08-05 21:57:29] [INFO] curl 已安装
+[2025-08-05 21:57:29] [INFO] jq 已安装
+[2025-08-05 21:57:29] [INFO] lsof 已安装
+[2025-08-05 21:57:29] [INFO] ps 已安装
+[2025-08-05 21:57:29] [INFO] 文件检查: docker-compose.yml 存在
+[2025-08-05 21:57:29] [INFO] 文件检查: src/apis/security_api.py 存在
+[2025-08-05 21:57:29] [INFO] 文件检查: requirements.txt 存在
+[2025-08-05 21:57:29] [INFO] 系统内存: 192GB
+[2025-08-05 21:57:29] [INFO] 可用内存: 12GB
+[2025-08-05 21:57:29] [INFO] 可用磁盘空间: 3000GB
+[2025-08-05 21:57:30] [WARN] 已占用端口: 5601 7474 8123 9200 6379 3306 2181 5115
+[2025-08-05 21:57:30] [INFO] 检查端口占用进程...
+[2025-08-05 21:57:31] [INFO] 端口 5601 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 7474 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 8123 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 9200 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 6379 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 3306 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 2181 被系统进程占用 (/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper PID:82555)，保持运行
+[2025-08-05 21:57:31] [INFO] 端口 5115 被用户进程占用，可以终止
+[2025-08-05 21:57:31] [INFO] 停止端口 5115 上的进程 python3 (PID: 7545)
+[2025-08-05 21:57:32] [INFO] 停止端口 5115 上的进程 /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/138.0.7204.169/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper (PID: 63273)
+[2025-08-05 21:57:34] [WARN] 系统端口 5601 7474 8123 9200 6379 3306 2181 被占用，将使用不同端口启动服务
+[2025-08-05 21:57:36] [WARN] 未在虚拟环境中运行
+[2025-08-05 21:57:36] [INFO] 激活虚拟环境...
+[2025-08-05 21:57:36] [INFO] 虚拟环境已激活: /Users/brunogao/work/tools/security-platform/venv
+[2025-08-05 21:57:36] [INFO] 安装Python依赖...
+[2025-08-05 21:57:36] [INFO] 使用虚拟环境pip: /Users/brunogao/work/tools/security-platform/venv/bin/pip
+[2025-08-05 21:57:36] [INFO] Python依赖安装完成
+[2025-08-05 21:57:36] [INFO] 设置演示环境...
+[2025-08-05 21:57:36] [INFO] 演示环境已准备
+[2025-08-05 21:57:36] [INFO] 环境配置完成
+[2025-08-05 21:57:36] [INFO] 检查Docker服务状态...
+[2025-08-05 21:57:36] [INFO] 检测到 10/11 个服务正在运行
+[2025-08-05 21:57:36] [INFO] 部分服务正在运行，将补充启动缺失的服务
+[2025-08-05 21:57:36] [INFO] 检查Docker镜像...
+[2025-08-05 21:57:37] [INFO] 所有Docker镜像已准备就绪 (10/10)
+[2025-08-05 21:57:37] [INFO] 所有Docker镜像已准备就绪
+[2025-08-05 21:57:37] [INFO] 启动Docker Compose服务...
+[2025-08-05 21:57:37] [INFO] Docker服务启动命令执行成功
+[2025-08-05 21:57:37] [INFO] 等待服务启动完成...

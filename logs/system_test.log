@@ -1,0 +1,233 @@
+2025-08-06 19:12:55,629 - __main__ - INFO - 开始安全分析系统测试
+2025-08-06 19:12:55,629 - __main__ - INFO - ============================================================
+2025-08-06 19:12:55,629 - __main__ - INFO - 测试1: 单个事件分析
+2025-08-06 19:12:55,629 - __main__ - INFO - 开始单个事件分析测试...
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Starting analysis for event b02fa160-0272-4972-aca1-a7089b144121
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Step 1: Entity Recognition for event b02fa160-0272-4972-aca1-a7089b144121
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Extracted 3 entities from event b02fa160-0272-4972-aca1-a7089b144121
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Step 2: Connection Expansion for event b02fa160-0272-4972-aca1-a7089b144121
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Expanded 0 connections across 3 entities
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Step 3: Risk Scoring for event b02fa160-0272-4972-aca1-a7089b144121
+2025-08-06 19:12:55,629 - src.engines.risk_scoring - INFO - Entity 192.168.1.100 risk score calculated: 19.35
+2025-08-06 19:12:55,629 - src.engines.risk_scoring - INFO - Entity 103.45.67.89 risk score calculated: 20.51
+2025-08-06 19:12:55,629 - src.engines.risk_scoring - INFO - Entity john.doe risk score calculated: 14.80
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Calculated risk scores for 3 entities, max score: 20.51
+2025-08-06 19:12:55,629 - src.services.security_analysis_service - INFO - Analysis completed for event b02fa160-0272-4972-aca1-a7089b144121 in 0.00s
+2025-08-06 19:12:55,629 - __main__ - INFO - 事件ID: b02fa160-0272-4972-aca1-a7089b144121
+2025-08-06 19:12:55,629 - __main__ - INFO - 处理状态: completed
+2025-08-06 19:12:55,629 - __main__ - INFO - 处理时间: 0.001秒
+2025-08-06 19:12:55,629 - __main__ - INFO - 提取实体数量: 3
+2025-08-06 19:12:55,630 - __main__ - INFO - 最高风险分数: 20.51
+2025-08-06 19:12:55,630 - __main__ - INFO - 高风险实体数量: 0
+2025-08-06 19:12:55,630 - __main__ - INFO - 执行响应数量: 0
+2025-08-06 19:12:55,630 - __main__ - INFO - 提取的实体详情:
+2025-08-06 19:12:55,630 - __main__ - INFO -   - ip: 192.168.1.100 (风险分数: 19.35, 状态: 已调查)
+2025-08-06 19:12:55,630 - __main__ - INFO -   - ip: 103.45.67.89 (风险分数: 20.51, 状态: 已调查)
+2025-08-06 19:12:55,630 - __main__ - INFO -   - user: john.doe (风险分数: 14.80, 状态: 已调查)
+2025-08-06 19:12:55,630 - __main__ - INFO - 单个事件分析测试完成
+2025-08-06 19:12:55,630 - __main__ - INFO - ============================================================
+2025-08-06 19:12:55,630 - __main__ - INFO - 测试2: 批量事件分析
+2025-08-06 19:12:55,630 - __main__ - INFO - 开始批量事件分析测试...
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Starting batch analysis of 5 events
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Starting analysis for event e31d33d8-409e-4c9c-9d4a-ccc6fe17ea51
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Step 1: Entity Recognition for event e31d33d8-409e-4c9c-9d4a-ccc6fe17ea51
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Extracted 3 entities from event e31d33d8-409e-4c9c-9d4a-ccc6fe17ea51
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Step 2: Connection Expansion for event e31d33d8-409e-4c9c-9d4a-ccc6fe17ea51
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Starting analysis for event d9996e00-0d0f-4065-a064-c617d2e2b713
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Step 1: Entity Recognition for event d9996e00-0d0f-4065-a064-c617d2e2b713
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Extracted 6 entities from event d9996e00-0d0f-4065-a064-c617d2e2b713
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Step 2: Connection Expansion for event d9996e00-0d0f-4065-a064-c617d2e2b713
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Starting analysis for event dc6baa06-2ac4-45fc-a87d-7f6e28042923
+2025-08-06 19:12:55,630 - src.services.security_analysis_service - INFO - Step 1: Entity Recognition for event dc6baa06-2ac4-45fc-a87d-7f6e28042923
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Extracted 7 entities from event dc6baa06-2ac4-45fc-a87d-7f6e28042923
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Step 2: Connection Expansion for event dc6baa06-2ac4-45fc-a87d-7f6e28042923
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Starting analysis for event 2f48bb24-62f3-40d9-b1f4-588b88d53ea2
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Step 1: Entity Recognition for event 2f48bb24-62f3-40d9-b1f4-588b88d53ea2
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Extracted 4 entities from event 2f48bb24-62f3-40d9-b1f4-588b88d53ea2
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Step 2: Connection Expansion for event 2f48bb24-62f3-40d9-b1f4-588b88d53ea2
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Starting analysis for event 92c921c4-3e3d-44ca-97e0-99372abf31ac
+2025-08-06 19:12:55,631 - src.services.security_analysis_service - INFO - Step 1: Entity Recognition for event 92c921c4-3e3d-44ca-97e0-99372abf31ac
+2025-08-06 19:12:55,632 - src.services.security_analysis_service - INFO - Extracted 3 entities from event 92c921c4-3e3d-44ca-97e0-99372abf31ac
+2025-08-06 19:12:55,632 - src.services.security_analysis_service - INFO - Step 2: Connection Expansion for event 92c921c4-3e3d-44ca-97e0-99372abf31ac
+2025-08-06 19:12:55,632 - src.services.security_analysis_service - INFO - Expanded 0 connections across 3 entities
+2025-08-06 19:12:55,632 - src.services.security_analysis_service - INFO - Step 3: Risk Scoring for event e31d33d8-409e-4c9c-9d4a-ccc6fe17ea51
+2025-08-06 19:12:55,632 - src.engines.risk_scoring - INFO - Entity 192.168.1.100 risk score calculated: 19.35
+2025-08-06 19:12:55,632 - src.engines.risk_scoring - INFO - Entity 103.45.67.89 risk score calculated: 20.51
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity john.doe risk score calculated: 14.80
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Calculated risk scores for 3 entities, max score: 20.51
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Analysis completed for event e31d33d8-409e-4c9c-9d4a-ccc6fe17ea51 in 0.00s
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Expanded 0 connections across 6 entities
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Step 3: Risk Scoring for event d9996e00-0d0f-4065-a064-c617d2e2b713
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity 192.168.1.50 risk score calculated: 19.35
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity admin risk score calculated: 14.80
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - ERROR - Error checking file indicators: 'NoneType' object has no attribute 'lower'
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity C:\Windows\System32\config\SAM risk score calculated: 22.27
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe risk score calculated: 26.27
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - ERROR - Error checking process indicators: 'NoneType' object has no attribute 'lower'
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity powershell.exe risk score calculated: 18.24
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 risk score calculated: 22.27
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Calculated risk scores for 6 entities, max score: 26.27
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Analysis completed for event d9996e00-0d0f-4065-a064-c617d2e2b713 in 0.00s
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Expanded 0 connections across 7 entities
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Step 3: Risk Scoring for event dc6baa06-2ac4-45fc-a87d-7f6e28042923
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity user1 risk score calculated: 14.80
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity C:\temp\suspicious.exe risk score calculated: 26.27
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - ERROR - Error checking process indicators: 'NoneType' object has no attribute 'lower'
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity suspicious.exe risk score calculated: 18.24
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity malicious.com risk score calculated: 26.89
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity explorer.exe risk score calculated: 26.89
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity http://malicious.com/c2 risk score calculated: 50.75
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity deadbeef1234567890abcdef1234567890abcdef1234567890abcdef12345678 risk score calculated: 22.27
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Calculated risk scores for 7 entities, max score: 50.75
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Step 4: Response Execution for event dc6baa06-2ac4-45fc-a87d-7f6e28042923
+2025-08-06 19:12:55,633 - src.engines.response_executor - INFO - Executing 2 actions for entity http://malicious.com/c2
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Expanded 0 connections across 4 entities
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Step 3: Risk Scoring for event 2f48bb24-62f3-40d9-b1f4-588b88d53ea2
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity 10.0.0.25 risk score calculated: 19.35
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity 192.168.100.10 risk score calculated: 19.35
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity service_account risk score calculated: 14.80
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity ad-server.company.com risk score calculated: 26.89
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Calculated risk scores for 4 entities, max score: 26.89
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Analysis completed for event 2f48bb24-62f3-40d9-b1f4-588b88d53ea2 in 0.00s
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Expanded 0 connections across 3 entities
+2025-08-06 19:12:55,633 - src.services.security_analysis_service - INFO - Step 3: Risk Scoring for event 92c921c4-3e3d-44ca-97e0-99372abf31ac
+2025-08-06 19:12:55,633 - src.engines.risk_scoring - INFO - Entity 192.168.1.200 risk score calculated: 19.35
+2025-08-06 19:12:55,634 - src.engines.risk_scoring - INFO - Entity compromised_user risk score calculated: 14.80
+2025-08-06 19:12:55,634 - src.engines.risk_scoring - INFO - Entity a1b2c3d4e5f6.malicious-c2.com risk score calculated: 26.89
+2025-08-06 19:12:55,634 - src.services.security_analysis_service - INFO - Calculated risk scores for 3 entities, max score: 26.89
+2025-08-06 19:12:55,634 - src.services.security_analysis_service - INFO - Analysis completed for event 92c921c4-3e3d-44ca-97e0-99372abf31ac in 0.00s
+2025-08-06 19:12:55,634 - src.engines.response_executor - INFO - Executing action send_alert for entity http://malicious.com/c2 using executor alert
+2025-08-06 19:12:55,634 - src.engines.response_executor - INFO - Executing action collect_evidence for entity http://malicious.com/c2 using executor alert
+2025-08-06 19:12:55,735 - src.engines.response_executor.alert - INFO - Sent alert for entity http://malicious.com/c2: {'entity_type': 'url', 'entity_id': 'http://malicious.com/c2', 'risk_score': 50.74994375506205, 'threat_level': '中风险', 'timestamp': '2025-08-06T19:12:55.634633', 'message': 'Security threat detected'}
+2025-08-06 19:12:55,735 - src.engines.response_executor - INFO - Successfully executed send_alert for entity http://malicious.com/c2
+2025-08-06 19:12:55,935 - src.engines.response_executor.alert - INFO - Collected evidence evidence_url_1754478775 for entity http://malicious.com/c2
+2025-08-06 19:12:55,935 - src.engines.response_executor - INFO - Successfully executed collect_evidence for entity http://malicious.com/c2
+2025-08-06 19:12:55,935 - src.engines.response_executor - INFO - Response execution completed for entity http://malicious.com/c2. Successful: 2, Failed: 0
+2025-08-06 19:12:55,935 - src.services.security_analysis_service - INFO - Executed 2 response actions
+2025-08-06 19:12:55,935 - src.services.security_analysis_service - INFO - Analysis completed for event dc6baa06-2ac4-45fc-a87d-7f6e28042923 in 0.31s
+2025-08-06 19:12:55,936 - src.services.security_analysis_service - INFO - Batch analysis completed: 5 results
+2025-08-06 19:12:55,936 - __main__ - INFO - 批量处理事件数量: 5
+2025-08-06 19:12:55,936 - __main__ - INFO - 返回结果数量: 5
+2025-08-06 19:12:55,936 - __main__ - INFO - 成功处理: 5
+2025-08-06 19:12:55,936 - __main__ - INFO - 处理失败: 0
+2025-08-06 19:12:55,936 - __main__ - INFO - 总提取实体数: 23
+2025-08-06 19:12:55,936 - __main__ - INFO - 总响应动作数: 2
+2025-08-06 19:12:55,936 - __main__ - INFO - 平均风险分数: 30.26
+2025-08-06 19:12:55,937 - __main__ - INFO - 批量事件分析测试完成
+2025-08-06 19:12:55,937 - __main__ - INFO - ============================================================
+2025-08-06 19:12:55,937 - __main__ - INFO - 测试3: 实体识别测试
+2025-08-06 19:12:55,937 - __main__ - INFO - 开始实体识别测试...
+2025-08-06 19:12:55,938 - __main__ - INFO - 从复杂日志中提取到 16 个实体:
+2025-08-06 19:12:55,938 - __main__ - INFO -   ip: 3 个
+2025-08-06 19:12:55,938 - __main__ - INFO -     - 192.168.1.100
+2025-08-06 19:12:55,938 - __main__ - INFO -     - 103.45.67.89
+2025-08-06 19:12:55,938 - __main__ - INFO -     - 10.0.0.25
+2025-08-06 19:12:55,938 - __main__ - INFO -   user: 1 个
+2025-08-06 19:12:55,939 - __main__ - INFO -     - john.doe
+2025-08-06 19:12:55,939 - __main__ - INFO -   file: 2 个
+2025-08-06 19:12:55,939 - __main__ - INFO -     - C:\Users\john.doe\Documents\sensitive.docx
+2025-08-06 19:12:55,939 - __main__ - INFO -     - a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
+2025-08-06 19:12:55,939 - __main__ - INFO -   process: 1 个
+2025-08-06 19:12:55,939 - __main__ - INFO -     - winword.exe
+2025-08-06 19:12:55,939 - __main__ - INFO -   domain: 7 个
+2025-08-06 19:12:55,939 - __main__ - INFO -     - suspicious-domain.com
+2025-08-06 19:12:55,939 - __main__ - INFO -     - company.com
+2025-08-06 19:12:55,939 - __main__ - INFO -     - sensitive.docx
+2025-08-06 19:12:55,939 - __main__ - INFO -     - malicious.com
+2025-08-06 19:12:55,939 - __main__ - INFO -     - payload.php
+2025-08-06 19:12:55,939 - __main__ - INFO -     - powershell.exe
+2025-08-06 19:12:55,939 - __main__ - INFO -     - malware.exe
+2025-08-06 19:12:55,939 - __main__ - INFO -   email: 1 个
+2025-08-06 19:12:55,940 - __main__ - INFO -     - john.doe@company.com
+2025-08-06 19:12:55,940 - __main__ - INFO -   url: 1 个
+2025-08-06 19:12:55,940 - __main__ - INFO -     - https://malicious.com/payload.php
+2025-08-06 19:12:55,940 - __main__ - INFO - 实体识别测试完成
+2025-08-06 19:12:55,940 - __main__ - INFO - ============================================================
+2025-08-06 19:12:55,940 - __main__ - INFO - 测试4: 风险评分测试
+2025-08-06 19:12:55,940 - __main__ - INFO - 开始风险评分测试...
+2025-08-06 19:12:55,940 - src.engines.risk_scoring - INFO - Entity 103.45.67.89 risk score calculated: 45.24
+2025-08-06 19:12:55,940 - __main__ - INFO - 实体 ip '103.45.67.89': 风险分数 45.24, 威胁等级 中风险
+2025-08-06 19:12:55,940 - src.engines.risk_scoring - INFO - Entity admin risk score calculated: 22.85
+2025-08-06 19:12:55,941 - __main__ - INFO - 实体 user 'admin': 风险分数 22.85, 威胁等级 低风险
+2025-08-06 19:12:55,941 - src.engines.risk_scoring - INFO - Entity C:\temp\suspicious.exe risk score calculated: 55.99
+2025-08-06 19:12:55,941 - __main__ - INFO - 实体 file 'C:\temp\suspicious.exe': 风险分数 55.99, 威胁等级 中风险
+2025-08-06 19:12:55,941 - __main__ - INFO - 风险评分测试完成
+2025-08-06 19:12:55,941 - __main__ - INFO - ============================================================
+2025-08-06 19:12:55,941 - __main__ - INFO - 测试5: 响应执行测试
+2025-08-06 19:12:55,941 - __main__ - INFO - 开始响应执行测试...
+2025-08-06 19:12:55,941 - __main__ - INFO - 测试实体 ip:192.168.1.100 的响应执行...
+2025-08-06 19:12:55,941 - src.engines.response_executor - INFO - Executing 2 actions for entity 192.168.1.100
+2025-08-06 19:12:55,942 - src.engines.response_executor - INFO - Executing action block_ip for entity 192.168.1.100 using executor firewall
+2025-08-06 19:12:55,942 - src.engines.response_executor - INFO - Executing action send_alert for entity 192.168.1.100 using executor alert
+2025-08-06 19:12:56,043 - src.engines.response_executor.firewall - INFO - Blocked IP 192.168.1.100 with rule: {'action': 'block', 'source_ip': '192.168.1.100', 'duration': 3600, 'reason': 'Security threat detected'}
+2025-08-06 19:12:56,043 - src.engines.response_executor.firewall - INFO - Successfully executed block_ip for IP 192.168.1.100
+2025-08-06 19:12:56,043 - src.engines.response_executor - INFO - Successfully executed block_ip for entity 192.168.1.100
+2025-08-06 19:12:56,044 - src.engines.response_executor.alert - INFO - Sent alert for entity 192.168.1.100: {'entity_type': 'ip', 'entity_id': '192.168.1.100', 'risk_score': 0.0, 'threat_level': '低风险', 'timestamp': '2025-08-06T19:12:55.942573', 'message': 'Security threat detected'}
+2025-08-06 19:12:56,044 - src.engines.response_executor - INFO - Successfully executed send_alert for entity 192.168.1.100
+2025-08-06 19:12:56,044 - src.engines.response_executor - INFO - Response execution completed for entity 192.168.1.100. Successful: 2, Failed: 0
+2025-08-06 19:12:56,044 - src.services.security_analysis_service - INFO - Manual response executed for entity 192.168.1.100: 2 actions
+2025-08-06 19:12:56,044 - __main__ - INFO -   执行了 2 个响应动作:
+2025-08-06 19:12:56,044 - __main__ - INFO -     - block_ip: 执行成功
+2025-08-06 19:12:56,044 - __main__ - INFO -     - send_alert: 执行成功
+2025-08-06 19:12:56,044 - __main__ - INFO - 测试实体 user:suspicious_user 的响应执行...
+2025-08-06 19:12:56,044 - src.engines.response_executor - INFO - Executing 2 actions for entity suspicious_user
+2025-08-06 19:12:56,045 - src.engines.response_executor - INFO - Executing action disable_user for entity suspicious_user using executor active_directory
+2025-08-06 19:12:56,045 - src.engines.response_executor - INFO - Executing action reset_password for entity suspicious_user using executor active_directory
+2025-08-06 19:12:56,146 - src.engines.response_executor.active_directory - INFO - Disabled user suspicious_user, reason: Security incident
+2025-08-06 19:12:56,147 - src.engines.response_executor.active_directory - INFO - Successfully executed disable_user for user suspicious_user
+2025-08-06 19:12:56,147 - src.engines.response_executor - INFO - Successfully executed disable_user for entity suspicious_user
+2025-08-06 19:12:56,149 - src.engines.response_executor.active_directory - INFO - Reset password for user suspicious_user
+2025-08-06 19:12:56,149 - src.engines.response_executor.active_directory - INFO - Successfully executed reset_password for user suspicious_user
+2025-08-06 19:12:56,149 - src.engines.response_executor - INFO - Successfully executed reset_password for entity suspicious_user
+2025-08-06 19:12:56,149 - src.engines.response_executor - INFO - Response execution completed for entity suspicious_user. Successful: 2, Failed: 0
+2025-08-06 19:12:56,149 - src.services.security_analysis_service - INFO - Manual response executed for entity suspicious_user: 2 actions
+2025-08-06 19:12:56,149 - __main__ - INFO -   执行了 2 个响应动作:
+2025-08-06 19:12:56,149 - __main__ - INFO -     - disable_user: 执行成功
+2025-08-06 19:12:56,150 - __main__ - INFO -     - reset_password: 执行成功
+2025-08-06 19:12:56,150 - __main__ - INFO - 测试实体 file:malware.exe 的响应执行...
+2025-08-06 19:12:56,150 - src.engines.response_executor - INFO - Executing 2 actions for entity malware.exe
+2025-08-06 19:12:56,150 - src.engines.response_executor - INFO - Executing action quarantine_file for entity malware.exe using executor edr
+2025-08-06 19:12:56,150 - src.engines.response_executor - INFO - Executing action collect_evidence for entity malware.exe using executor alert
+2025-08-06 19:12:56,251 - src.engines.response_executor.edr - INFO - Quarantined file malware.exe with ID quarantine_1754478776
+2025-08-06 19:12:56,252 - src.engines.response_executor - INFO - Successfully executed quarantine_file for entity malware.exe
+2025-08-06 19:12:56,451 - src.engines.response_executor.alert - INFO - Collected evidence evidence_file_1754478776 for entity malware.exe
+2025-08-06 19:12:56,452 - src.engines.response_executor - INFO - Successfully executed collect_evidence for entity malware.exe
+2025-08-06 19:12:56,452 - src.engines.response_executor - INFO - Response execution completed for entity malware.exe. Successful: 2, Failed: 0
+2025-08-06 19:12:56,452 - src.services.security_analysis_service - INFO - Manual response executed for entity malware.exe: 2 actions
+2025-08-06 19:12:56,452 - __main__ - INFO -   执行了 2 个响应动作:
+2025-08-06 19:12:56,452 - __main__ - INFO -     - quarantine_file: 执行成功
+2025-08-06 19:12:56,452 - __main__ - INFO -     - collect_evidence: 执行成功
+2025-08-06 19:12:56,452 - __main__ - INFO - 响应执行测试完成
+2025-08-06 19:12:56,452 - __main__ - INFO - ============================================================
+2025-08-06 19:12:56,452 - __main__ - INFO - 测试6: 系统统计信息
+2025-08-06 19:12:56,452 - __main__ - INFO - 开始系统统计测试...
+2025-08-06 19:12:56,453 - __main__ - INFO - 系统处理统计:
+2025-08-06 19:12:56,453 - __main__ - INFO -   total_events_processed: 6
+2025-08-06 19:12:56,453 - __main__ - INFO -   total_entities_extracted: 26
+2025-08-06 19:12:56,453 - __main__ - INFO -   total_connections_expanded: 0
+2025-08-06 19:12:56,453 - __main__ - INFO -   total_responses_executed: 2
+2025-08-06 19:12:56,453 - __main__ - INFO -   average_processing_time: 0.052759499999999994
+2025-08-06 19:12:56,453 - __main__ - INFO - 系统配置:
+2025-08-06 19:12:56,453 - __main__ - INFO -   enable_connection_expansion: True
+2025-08-06 19:12:56,453 - __main__ - INFO -   enable_risk_scoring: True
+2025-08-06 19:12:56,453 - __main__ - INFO -   enable_auto_response: True
+2025-08-06 19:12:56,453 - __main__ - INFO -   max_concurrent_processing: 5
+2025-08-06 19:12:56,453 - __main__ - INFO -   processing_timeout: 300
+2025-08-06 19:12:56,453 - __main__ - INFO -   min_risk_threshold_for_response: 30.0
+2025-08-06 19:12:56,453 - __main__ - INFO - 系统统计测试完成
+2025-08-06 19:12:56,453 - __main__ - INFO - ============================================================
+2025-08-06 19:12:56,453 - __main__ - INFO - 测试7: 健康检查
+2025-08-06 19:12:56,453 - __main__ - INFO - 开始健康检查测试...
+2025-08-06 19:12:56,453 - __main__ - INFO - 服务状态: healthy
+2025-08-06 19:12:56,453 - __main__ - INFO - 组件状态:
+2025-08-06 19:12:56,453 - __main__ - INFO -   entity_recognizer: healthy
+2025-08-06 19:12:56,454 - __main__ - INFO -   connection_engine: healthy
+2025-08-06 19:12:56,454 - __main__ - INFO -   risk_scoring_engine: healthy
+2025-08-06 19:12:56,454 - __main__ - INFO -   response_orchestrator: healthy
+2025-08-06 19:12:56,454 - __main__ - INFO - 健康检查测试完成
+2025-08-06 19:12:56,454 - __main__ - INFO - ============================================================
+2025-08-06 19:12:56,454 - __main__ - INFO - 所有测试完成!
+2025-08-06 19:12:56,454 - __main__ - INFO - 
+============================================================
+2025-08-06 19:12:56,454 - __main__ - INFO - 🎉 安全分析系统测试全部通过!
+2025-08-06 19:12:56,454 - __main__ - INFO - 系统已准备就绪，可以开始处理实际的安全事件。

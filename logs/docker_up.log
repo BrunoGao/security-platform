@@ -1,5 +1,5 @@
  flink-taskmanager Pulling 
  flink-jobmanager Pulling 
- flink-taskmanager Error pull access denied for registry.cn-hangzhou.aliyuncs.com/library/flink, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+ flink-taskmanager Error Get "https://registry-1.docker.io/v2/": EOF
  flink-jobmanager  Interrupted
-Error response from daemon: pull access denied for registry.cn-hangzhou.aliyuncs.com/library/flink, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+Error response from daemon: Get "https://registry-1.docker.io/v2/": EOF
