@@ -1,0 +1,29 @@
+events:
+  - event_type: security_lateral_movement
+    log_data:
+      src_ip: "192.168.1.100"
+      dst_ip: "192.168.1.50"
+      username: "attacker"
+      action: "ssh_login"
+      timestamp: "2024-01-15T10:30:00Z"
+      severity: "high"
+      
+  - event_type: security_privilege_escalation
+    log_data:
+      src_ip: "192.168.1.50"
+      dst_ip: "192.168.1.200"
+      username: "root"
+      action: "privilege_escalation"
+      timestamp: "2024-01-15T10:35:00Z"
+      severity: "critical"
+
+  - event_type: security_data_exfiltration
+    log_data:
+      src_ip: "10.0.0.100"
+      dst_ip: "198.51.100.1"
+      username: "admin"
+      action: "large_data_transfer"
+      data_size: "500MB"
+      file_types: "database,documents"
+      timestamp: "2024-01-15T14:30:00Z"
+      severity: "critical"

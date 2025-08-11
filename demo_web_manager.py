@@ -300,16 +300,16 @@ class SystemManager:
         except requests.RequestException:
             return {'api_running': False}
     
-    def get_service_urls(self) -> Dict[str, str]:
+    def get_service_urls(self, host: str = 'localhost') -> Dict[str, str]:
         """获取服务访问URL"""
         return {
-            'api': 'http://localhost:8000',
-            'api_docs': 'http://localhost:8000/docs',
-            'kibana': 'http://localhost:5601',
-            'neo4j': 'http://localhost:7474',
-            'clickhouse': 'http://localhost:8123/play',
-            'kafka_ui': 'http://localhost:8082',
-            'elasticsearch': 'http://localhost:9200'
+            'api': f'http://{host}:8000',
+            'api_docs': f'http://{host}:8000/docs',
+            'kibana': f'http://{host}:5601',
+            'neo4j': f'http://{host}:7474',
+            'clickhouse': f'http://{host}:8123/play',
+            'kafka_ui': f'http://{host}:8082',
+            'elasticsearch': f'http://{host}:9200'
         }
 
 system_manager = SystemManager()
@@ -327,9 +327,12 @@ def get_system_info():
 @app.route('/api/system/status')
 def get_system_status():
     """获取系统状态"""
+    # 获取请求的主机地址
+    host = request.headers.get('Host', 'localhost').split(':')[0]
+    
     docker_status = system_manager.check_docker_services()
     api_status = system_manager.check_api_status()
-    service_urls = system_manager.get_service_urls()
+    service_urls = system_manager.get_service_urls(host)
     
     return jsonify({
         'docker': docker_status,
@@ -353,7 +356,7 @@ def start_system():
         
         try:
             # 执行启动脚本
-            result = system_manager.execute_command('./one_click_start.sh')
+            result = system_manager.execute_command('./start_app.sh')
             
             if result['success']:
                 system_manager.add_log('SUCCESS', '系统启动成功')
@@ -424,7 +427,7 @@ def restart_system():
             system_manager.is_starting = True
             system_manager.system_status = "starting"
             
-            start_result = system_manager.execute_command('./one_click_start.sh')
+            start_result = system_manager.execute_command('./start_app.sh')
             
             if start_result['success']:
                 system_manager.add_log('SUCCESS', '系统重启成功')
@@ -451,6 +454,118 @@ def get_logs():
         'total': len(system_manager.logs)
     })
 
+def create_attack_graph_in_neo4j(host: str, attack_data: dict):
+    """在Neo4j中创建攻击路径图"""
+    try:
+        # 尝试多个Neo4j连接方式
+        neo4j_urls = [
+            f'http://localhost:7474/db/neo4j/tx/commit',
+            f'http://{host}:7474/db/neo4j/tx/commit',
+            f'http://127.0.0.1:7474/db/neo4j/tx/commit'
+        ]
+        
+        # 创建攻击路径的Cypher查询
+        cypher_statements = []
+        
+        # 创建一个简化的攻击路径图
+        timestamp = datetime.now().isoformat()
+        
+        # 单个语句创建完整攻击图
+        cypher_statements.append({
+            "statement": """
+            // 清理旧数据
+            MATCH (n) WHERE n.demo_session = $session_id DELETE n
+            WITH 1 as dummy
+            
+            // 创建攻击者
+            CREATE (attacker:Attacker {
+                id: $attacker_ip, 
+                ip: $attacker_ip, 
+                name: '攻击者',
+                threat_level: '高',
+                risk_score: 8.5,
+                timestamp: $timestamp,
+                demo_session: $session_id
+            })
+            
+            // 创建目标系统
+            CREATE (target:System {
+                id: 'target_system', 
+                name: '目标系统', 
+                ip: '10.0.0.1',
+                compromised: true,
+                timestamp: $timestamp,
+                demo_session: $session_id
+            })
+            
+            // 创建服务器1
+            CREATE (server1:System {
+                id: 'server1', 
+                name: '服务器1', 
+                ip: '192.168.1.50',
+                compromised: true,
+                timestamp: $timestamp,
+                demo_session: $session_id
+            })
+            
+            // 创建数据库
+            CREATE (database:System {
+                id: 'database', 
+                name: '数据库服务器', 
+                ip: '192.168.1.200',
+                compromised: false,
+                timestamp: $timestamp,
+                demo_session: $session_id
+            })
+            
+            // 创建攻击关系
+            CREATE (attacker)-[:ATTACKS {action: 'initial_access', method: 'brute_force', timestamp: $timestamp}]->(target)
+            CREATE (target)-[:ATTACKS {action: 'lateral_movement', method: 'ssh_login', timestamp: $timestamp}]->(server1)
+            CREATE (server1)-[:ATTACKS {action: 'data_access', method: 'privilege_escalation', timestamp: $timestamp}]->(database)
+            
+            RETURN count(*) as nodes_created
+            """,
+            "parameters": {
+                "attacker_ip": "192.168.1.100",
+                "timestamp": timestamp,
+                "session_id": f"demo_{int(time.time())}"
+            }
+        })
+        
+        # 发送到Neo4j - 尝试多个连接方式
+        payload = {"statements": cypher_statements}
+        
+        for neo4j_url in neo4j_urls:
+            try:
+                response = requests.post(
+                    neo4j_url,
+                    json=payload,
+                    headers={'Content-Type': 'application/json'},
+                    auth=('neo4j', 'security123'),
+                    timeout=5  # 减少超时时间
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    if not result.get('errors'):
+                        system_manager.add_log('SUCCESS', '攻击路径已写入Neo4j图数据库')
+                        return True
+                    else:
+                        system_manager.add_log('WARNING', f'Neo4j查询错误: {result["errors"]}')
+                else:
+                    system_manager.add_log('DEBUG', f'Neo4j响应状态: {response.status_code} (URL: {neo4j_url})')
+                    
+            except requests.RequestException as e:
+                system_manager.add_log('DEBUG', f'Neo4j连接尝试失败: {neo4j_url} - {str(e)}')
+                continue
+        
+        system_manager.add_log('WARNING', 'Neo4j不可用，攻击路径图未创建（演示功能仍可正常使用）')
+        return False
+            
+    except Exception as e:
+        system_manager.add_log('WARNING', f'Neo4j连接失败: {str(e)}')
+        return False
+
 @app.route('/api/demo/test-event', methods=['POST'])
 def create_test_event():
     """创建测试事件"""
@@ -468,18 +583,107 @@ def create_test_event():
             }
         }
         
+        # 获取请求的主机地址
+        host = request.headers.get('Host', 'localhost').split(':')[0]
+        
         response = requests.post(
-            'http://localhost:8000/api/v1/analyze/event',
+            f'http://{host}:8000/api/v1/analyze/event',
             json=test_data,
             timeout=10
         )
         
         if response.status_code == 200:
-            system_manager.add_log('INFO', '测试事件创建成功')
+            result_data = response.json()
+            system_manager.add_log('INFO', '测试事件分析完成')
+            
+            # 解析分析结果并显示详情
+            if result_data.get('success') and result_data.get('data'):
+                event_data = result_data['data']
+                entities = event_data.get('entities', [])
+                max_risk = event_data.get('risk_score', 0)
+                
+                # 发送实体分析结果到前端
+                socketio.emit('entity_analysis', {
+                    'entities': entities,
+                    'max_risk_score': max_risk,
+                    'event_id': event_data.get('event_id', 'unknown'),
+                    'timestamp': datetime.now().isoformat()
+                })
+                
+                # 发送攻击演示更新
+                socketio.emit('attack_demo_update', {
+                    'stage': 'intrusion_detected',
+                    'steps': [
+                        {'id': 'step-detect-intrusion', 'status': 'completed'},
+                        {'id': 'step-analyze-source', 'status': 'investigating'}
+                    ],
+                    'nodes': [
+                        {'id': 'node-target', 'status': 'compromised'}
+                    ]
+                })
+                
+                # 显示实体分析结果
+                if entities:
+                    entity_details = []
+                    for entity in entities:
+                        entity_type = entity.get('entity_type', 'unknown')
+                        entity_id = entity.get('entity_id', 'N/A')
+                        risk_score = entity.get('risk_score', 0)
+                        threat_level = entity.get('threat_level', '未知')
+                        
+                        entity_details.append(f"{entity_type}:{entity_id}")
+                    
+                    system_manager.add_log('INFO', f'检测到 {len(entities)} 个实体: {", ".join(entity_details)}')
+                    system_manager.add_log('INFO', f'最高风险评分: {max_risk:.1f}')
+                    
+                    # 显示威胁等级
+                    high_risk_count = sum(1 for e in entities if e.get('risk_score', 0) > 70)
+                    if high_risk_count > 0:
+                        system_manager.add_log('WARNING', f'发现 {high_risk_count} 个高风险实体！')
+                    
+                    # 发送横向移动阶段更新
+                    def send_lateral_movement_update():
+                        import time
+                        time.sleep(3)  # 延迟3秒
+                        socketio.emit('attack_demo_update', {
+                            'stage': 'lateral_movement',
+                            'steps': [
+                                {'id': 'step-track-movement', 'status': 'investigating'},
+                                {'id': 'step-identify-assets', 'status': 'pending'}
+                            ],
+                            'nodes': [
+                                {'id': 'node-entry', 'status': 'compromised'},
+                                {'id': 'node-server1', 'status': 'investigating'}
+                            ]
+                        })
+                    
+                    # 发送威胁分析阶段更新
+                    def send_threat_analysis_update():
+                        import time
+                        time.sleep(6)  # 延迟6秒
+                        socketio.emit('attack_demo_update', {
+                            'stage': 'threat_analysis',
+                            'steps': [
+                                {'id': 'step-assess-impact', 'status': 'investigating'},
+                                {'id': 'step-generate-report', 'status': 'pending'}
+                            ]
+                        })
+                    
+                    # 在后台线程中发送延迟更新
+                    threading.Thread(target=send_lateral_movement_update, daemon=True).start()
+                    threading.Thread(target=send_threat_analysis_update, daemon=True).start()
+                
+                # 在Neo4j中创建攻击路径图
+                create_attack_graph_in_neo4j(host, {
+                    'timestamp': datetime.now().isoformat(),
+                    'entities': entities,
+                    'risk_score': max_risk
+                })
+            
             return jsonify({
                 'success': True, 
                 'message': '测试事件创建成功',
-                'response': response.json()
+                'response': result_data
             })
         else:
             return jsonify({
@@ -524,6 +728,9 @@ def get_demo_scenarios():
 @app.route('/api/demo/run-scenario/<scenario_id>', methods=['POST'])
 def run_demo_scenario(scenario_id):
     """运行演示场景"""
+    # 获取请求的主机地址
+    host = request.headers.get('Host', 'localhost').split(':')[0]
+    
     def generate_scenario_events():
         system_manager.add_log('INFO', f'开始运行演示场景: {scenario_id}')
         
@@ -568,15 +775,35 @@ def run_demo_scenario(scenario_id):
                 
                 # 发送到API
                 response = requests.post(
-                    'http://localhost:8000/api/v1/analyze/event',
+                    f'http://{host}:8000/api/v1/analyze/event',
                     json=test_event,
                     timeout=30
                 )
                 
                 if response.status_code == 200:
-                    system_manager.add_log('INFO', f'场景事件 {i+1} 发送成功')
+                    result_data = response.json()
+                    system_manager.add_log('INFO', f'场景事件 {i+1} 分析完成')
+                    
+                    # 解析分析结果
+                    if result_data.get('success') and result_data.get('data'):
+                        event_data = result_data['data']
+                        entities = event_data.get('entities', [])
+                        max_risk = event_data.get('risk_score', 0)
+                        
+                        # 显示实体信息
+                        if entities:
+                            entity_info = []
+                            for entity in entities:
+                                entity_info.append(f"{entity.get('entity_type', 'unknown')}:{entity.get('entity_id', 'N/A')}(风险:{entity.get('risk_score', 0):.1f})")
+                            
+                            system_manager.add_log('INFO', f'  → 检测到 {len(entities)} 个实体: {", ".join(entity_info)}')
+                            system_manager.add_log('INFO', f'  → 最高风险评分: {max_risk:.1f}')
+                            
+                            # 显示攻击链
+                            if i > 0:
+                                system_manager.add_log('WARNING', f'  → 横向移动检测: 攻击链第 {i+1} 步')
                 else:
-                    system_manager.add_log('ERROR', f'场景事件 {i+1} 发送失败')
+                    system_manager.add_log('ERROR', f'场景事件 {i+1} 分析失败')
                 
                 # 事件间隔
                 time.sleep(5)
@@ -590,6 +817,154 @@ def run_demo_scenario(scenario_id):
     threading.Thread(target=generate_scenario_events, daemon=True).start()
     
     return jsonify({'success': True, 'message': f'演示场景 {scenario_id} 开始执行'})
+
+@app.route('/api/demo/event-templates')
+def get_event_templates():
+    """获取事件模板"""
+    templates = {
+        'yaml_templates': {
+            'attack_scenario': {
+                'name': '攻击场景',
+                'description': '多步骤横向移动攻击演示',
+                'events_count': 2,
+                'template': '''events:
+  - event_type: security_lateral_movement
+    log_data:
+      src_ip: "192.168.1.100"
+      dst_ip: "192.168.1.50"
+      username: "attacker"
+      action: "ssh_login"
+      timestamp: "2024-01-15T10:30:00Z"
+      severity: "high"
+      
+  - event_type: security_privilege_escalation
+    log_data:
+      src_ip: "192.168.1.50"
+      dst_ip: "192.168.1.200"
+      username: "root"
+      action: "privilege_escalation"
+      timestamp: "2024-01-15T10:35:00Z"
+      severity: "critical"'''
+            },
+            'malware_detection': {
+                'name': '恶意软件检测',
+                'description': '恶意软件检测和分析事件',
+                'events_count': 1,
+                'template': '''event_type: security_malware
+log_data:
+  src_ip: "203.0.113.50"
+  dst_ip: "10.0.0.100"
+  username: "user"
+  action: "malware_detected"
+  file_path: "/tmp/suspicious.exe"
+  malware_family: "trojan"
+  timestamp: "2024-01-15T10:00:00Z"
+  severity: "critical"'''
+            },
+            'data_breach': {
+                'name': '数据泄露',
+                'description': '敏感数据外传检测事件',
+                'events_count': 1,
+                'template': '''event_type: security_data_exfiltration
+log_data:
+  src_ip: "10.0.0.100"
+  dst_ip: "198.51.100.1"
+  username: "admin"
+  action: "large_data_transfer"
+  data_size: "500MB"
+  file_types: "database,documents"
+  timestamp: "2024-01-15T14:30:00Z"
+  severity: "critical"'''
+            }
+        },
+        'json_templates': {
+            'basic_alert': {
+                'name': '基础告警',
+                'description': '标准安全告警事件',
+                'template': {
+                    "event_type": "security_alert",
+                    "log_data": {
+                        "src_ip": "192.168.1.100",
+                        "dst_ip": "10.0.0.1",
+                        "username": "user",
+                        "action": "login_attempt",
+                        "timestamp": datetime.now().isoformat(),
+                        "severity": "medium"
+                    }
+                }
+            },
+            'network_event': {
+                'name': '网络事件',
+                'description': '网络连接和流量分析事件',
+                'template': {
+                    "event_type": "security_network",
+                    "log_data": {
+                        "src_ip": "203.0.113.50",
+                        "dst_ip": "10.0.0.100",
+                        "src_port": 45123,
+                        "dst_port": 22,
+                        "protocol": "TCP",
+                        "action": "connection_attempt",
+                        "bytes_transferred": 1024,
+                        "timestamp": datetime.now().isoformat(),
+                        "severity": "medium"
+                    }
+                }
+            }
+        }
+    }
+    
+    return jsonify(templates)
+
+@app.route('/api/demo/validate-event', methods=['POST'])
+def validate_event():
+    """验证事件格式"""
+    try:
+        event_data = request.get_json()
+        
+        if not event_data:
+            return jsonify({
+                'valid': False,
+                'errors': ['请提供事件数据'],
+                'warnings': []
+            })
+        
+        errors = []
+        warnings = []
+        
+        # 基础字段验证
+        if not event_data.get('event_type'):
+            errors.append('缺少必需字段: event_type')
+        
+        if not event_data.get('log_data'):
+            errors.append('缺少必需字段: log_data')
+        else:
+            log_data = event_data['log_data']
+            
+            # 推荐字段检查
+            recommended_fields = ['timestamp', 'severity', 'src_ip', 'action']
+            for field in recommended_fields:
+                if not log_data.get(field):
+                    warnings.append(f'建议添加字段: {field}')
+            
+            # 数据类型检查
+            if log_data.get('severity') and log_data['severity'] not in ['low', 'medium', 'high', 'critical']:
+                warnings.append('severity建议使用: low, medium, high, critical')
+        
+        return jsonify({
+            'valid': len(errors) == 0,
+            'errors': errors,
+            'warnings': warnings,
+            'field_count': len(event_data.get('log_data', {})),
+            'event_type': event_data.get('event_type', 'N/A')
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'valid': False,
+            'errors': [f'JSON解析错误: {str(e)}'],
+            'warnings': []
+        }), 400
 
 @socketio.on('connect')
 def handle_connect():

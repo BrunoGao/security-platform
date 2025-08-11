@@ -89,7 +89,7 @@
                             <i class="fas fa-bolt me-2"></i>快速操作
                         </h6>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-outline-primary btn-sm" onclick="createTestEvent()">
+                            <button class="btn btn-outline-primary btn-sm" onclick="showEventCreator()">
                                 <i class="fas fa-vial me-2"></i>创建测试事件
                             </button>
                             <button class="btn btn-outline-success btn-sm" onclick="showDemoScenarios()">
@@ -158,9 +158,96 @@
             </div>
         </div>
 
-        <!-- Logs and Activity -->
+        <!-- Attack Demonstration and Logs -->
         <div class="row mt-4">
-            <div class="col-12">
+            <!-- Attack Demonstration Panel -->
+            <div class="col-lg-6">
+                <div class="attack-demo-panel" id="attack-demo-panel" style="display: none;">
+                    <div class="card bg-dark border-primary">
+                        <div class="card-header bg-primary">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-shield-virus me-2"></i>攻击路径分析演示
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Attack Stages -->
+                            <div id="attack-stages-container">
+                                <!-- Stage 1: Initial Intrusion -->
+                                <div class="attack-stage" id="stage-intrusion">
+                                    <div class="attack-stage-title">
+                                        <i class="fas fa-door-open text-danger"></i>
+                                        阶段 1: 初始入侵
+                                    </div>
+                                    <div class="attack-path-graph" id="graph-intrusion">
+                                        <div class="graph-node" id="node-attacker" style="top: 50%; left: 10%;">攻击者</div>
+                                        <div class="graph-node" id="node-target" style="top: 50%; left: 85%;">目标系统</div>
+                                        <div class="graph-connection" id="conn-initial" style="top: 50%; left: 15%; width: 65%; transform: translateY(-50%);"></div>
+                                    </div>
+                                    <div class="analysis-steps">
+                                        <div class="analysis-step" id="step-detect-intrusion">
+                                            <i class="fas fa-search me-2"></i>检测异常登录活动...
+                                        </div>
+                                        <div class="analysis-step" id="step-analyze-source">
+                                            <i class="fas fa-globe me-2"></i>分析攻击源IP地址...
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Stage 2: Lateral Movement -->
+                                <div class="attack-stage" id="stage-lateral">
+                                    <div class="attack-stage-title">
+                                        <i class="fas fa-arrows-alt text-warning"></i>
+                                        阶段 2: 横向移动
+                                    </div>
+                                    <div class="attack-path-graph" id="graph-lateral">
+                                        <div class="graph-node compromised" id="node-entry" style="top: 30%; left: 15%;">入口点</div>
+                                        <div class="graph-node investigating" id="node-server1" style="top: 70%; left: 40%;">服务器1</div>
+                                        <div class="graph-node" id="node-server2" style="top: 30%; left: 70%;">服务器2</div>
+                                        <div class="graph-node" id="node-database" style="top: 70%; left: 85%;">数据库</div>
+                                    </div>
+                                    <div class="analysis-steps">
+                                        <div class="analysis-step investigating" id="step-track-movement">
+                                            <i class="fas fa-route me-2"></i>追踪横向移动路径...
+                                        </div>
+                                        <div class="analysis-step" id="step-identify-assets">
+                                            <i class="fas fa-server me-2"></i>识别受影响资产...
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Stage 3: Data Analysis -->
+                                <div class="attack-stage" id="stage-analysis">
+                                    <div class="attack-stage-title">
+                                        <i class="fas fa-brain text-info"></i>
+                                        阶段 3: 威胁研判
+                                    </div>
+                                    <div class="analysis-steps">
+                                        <div class="analysis-step completed" id="step-correlate-events">
+                                            <i class="fas fa-link me-2"></i>关联攻击事件序列
+                                        </div>
+                                        <div class="analysis-step investigating" id="step-assess-impact">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>评估安全影响...
+                                        </div>
+                                        <div class="analysis-step" id="step-generate-report">
+                                            <i class="fas fa-file-alt me-2"></i>生成威胁情报报告...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Neo4j Graph Integration -->
+                            <div class="mt-3">
+                                <button class="btn btn-info btn-sm" onclick="openNeo4jView()">
+                                    <i class="fas fa-project-diagram me-1"></i>在Neo4j中查看完整攻击图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Logs -->
+            <div class="col-lg-6">
                 <div class="card bg-dark border-secondary">
                     <div class="card-header bg-secondary">
                         <div class="row align-items-center">
@@ -223,6 +310,227 @@
                 <div class="modal-body">
                     <div id="demo-scenarios-list">
                         <!-- Scenarios will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Creator Modal -->
+    <div class="modal fade" id="eventCreatorModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-vial me-2"></i>创建安全事件
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tab Navigation -->
+                    <ul class="nav nav-tabs mb-3" id="eventCreatorTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="quick-event-tab" data-bs-toggle="tab" data-bs-target="#quick-event-panel" type="button" role="tab">
+                                <i class="fas fa-bolt me-1"></i>快速创建
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="yaml-import-tab" data-bs-toggle="tab" data-bs-target="#yaml-import-panel" type="button" role="tab">
+                                <i class="fas fa-file-import me-1"></i>YAML导入
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="online-editor-tab" data-bs-toggle="tab" data-bs-target="#online-editor-panel" type="button" role="tab">
+                                <i class="fas fa-edit me-1"></i>在线编辑
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="eventCreatorTabsContent">
+                        <!-- Quick Event Creation -->
+                        <div class="tab-pane fade show active" id="quick-event-panel" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="mb-3"><i class="fas fa-shield-alt me-2"></i>安全事件类型</h6>
+                                    <div class="event-type-cards">
+                                        <div class="event-type-card" data-type="brute_force" onclick="selectEventType(this, 'brute_force')">
+                                            <i class="fas fa-hammer text-danger"></i>
+                                            <span>暴力破解</span>
+                                        </div>
+                                        <div class="event-type-card" data-type="malware" onclick="selectEventType(this, 'malware')">
+                                            <i class="fas fa-virus text-warning"></i>
+                                            <span>恶意软件</span>
+                                        </div>
+                                        <div class="event-type-card" data-type="lateral_movement" onclick="selectEventType(this, 'lateral_movement')">
+                                            <i class="fas fa-arrows-alt text-info"></i>
+                                            <span>横向移动</span>
+                                        </div>
+                                        <div class="event-type-card" data-type="data_exfiltration" onclick="selectEventType(this, 'data_exfiltration')">
+                                            <i class="fas fa-download text-danger"></i>
+                                            <span>数据泄露</span>
+                                        </div>
+                                        <div class="event-type-card" data-type="privilege_escalation" onclick="selectEventType(this, 'privilege_escalation')">
+                                            <i class="fas fa-user-shield text-warning"></i>
+                                            <span>权限提升</span>
+                                        </div>
+                                        <div class="event-type-card" data-type="command_injection" onclick="selectEventType(this, 'command_injection')">
+                                            <i class="fas fa-terminal text-danger"></i>
+                                            <span>命令注入</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="mb-3"><i class="fas fa-cogs me-2"></i>事件参数</h6>
+                                    <div class="event-params">
+                                        <div class="mb-3">
+                                            <label class="form-label">源IP地址</label>
+                                            <input type="text" class="form-control" id="quick-src-ip" value="192.168.1.100">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">目标IP地址</label>
+                                            <input type="text" class="form-control" id="quick-dst-ip" value="10.0.0.1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">用户名</label>
+                                            <input type="text" class="form-control" id="quick-username" value="admin">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">严重级别</label>
+                                            <select class="form-select" id="quick-severity">
+                                                <option value="low">低</option>
+                                                <option value="medium" selected>中</option>
+                                                <option value="high">高</option>
+                                                <option value="critical">严重</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary" onclick="createQuickEvent()">
+                                    <i class="fas fa-rocket me-2"></i>创建事件并开始分析
+                                </button>
+                                <span class="text-muted ms-3">选择事件类型后将自动配置相关参数</span>
+                            </div>
+                        </div>
+                        
+                        <!-- YAML Import -->
+                        <div class="tab-pane fade" id="yaml-import-panel" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="mb-3"><i class="fas fa-file-upload me-2"></i>导入YAML文件</h6>
+                                    <div class="upload-area" id="yaml-upload-area" ondrop="handleYamlDrop(event)" ondragover="handleYamlDragOver(event)" onclick="document.getElementById('yaml-file-input').click()">
+                                        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                        <p class="mb-1">拖放YAML文件到此处</p>
+                                        <p class="text-muted small">或点击选择文件</p>
+                                        <input type="file" id="yaml-file-input" accept=".yaml,.yml" style="display: none;" onchange="handleYamlFileSelect(event)">
+                                    </div>
+                                    <div class="mt-3">
+                                        <h6>示例YAML模板:</h6>
+                                        <div class="template-buttons">
+                                            <button class="btn btn-outline-secondary btn-sm me-2" onclick="loadYamlTemplate('attack_scenario')">攻击场景</button>
+                                            <button class="btn btn-outline-secondary btn-sm me-2" onclick="loadYamlTemplate('malware_detection')">恶意软件检测</button>
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="loadYamlTemplate('data_breach')">数据泄露</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="mb-3"><i class="fas fa-eye me-2"></i>YAML预览</h6>
+                                    <div id="yaml-preview" class="yaml-preview">
+                                        <div class="text-center text-muted p-4">
+                                            选择或导入YAML文件进行预览
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-success" id="yaml-import-btn" onclick="importYamlEvents()" disabled>
+                                    <i class="fas fa-file-import me-2"></i>导入并执行事件
+                                </button>
+                                <button class="btn btn-outline-info ms-2" onclick="downloadYamlTemplate()">
+                                    <i class="fas fa-download me-2"></i>下载模板
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Online Editor -->
+                        <div class="tab-pane fade" id="online-editor-panel" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h6 class="mb-3"><i class="fas fa-code me-2"></i>JSON事件编辑器</h6>
+                                    <div class="editor-toolbar mb-2">
+                                        <button class="btn btn-outline-secondary btn-sm" onclick="formatJsonEditor()">
+                                            <i class="fas fa-indent me-1"></i>格式化
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm" onclick="validateJsonEditor()">
+                                            <i class="fas fa-check me-1"></i>验证
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm" onclick="clearJsonEditor()">
+                                            <i class="fas fa-trash me-1"></i>清空
+                                        </button>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                                <i class="fas fa-file me-1"></i>模板
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" onclick="loadJsonTemplate('basic_alert')">基础告警</a></li>
+                                                <li><a class="dropdown-item" onclick="loadJsonTemplate('network_event')">网络事件</a></li>
+                                                <li><a class="dropdown-item" onclick="loadJsonTemplate('file_event')">文件事件</a></li>
+                                                <li><a class="dropdown-item" onclick="loadJsonTemplate('process_event')">进程事件</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <textarea id="json-editor" class="json-editor" rows="20" placeholder="在此输入JSON格式的安全事件数据..."></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="mb-3"><i class="fas fa-info-circle me-2"></i>实时验证</h6>
+                                    <div id="json-validation-result" class="validation-result">
+                                        <div class="text-muted">输入JSON数据开始验证</div>
+                                    </div>
+                                    
+                                    <h6 class="mb-3 mt-4"><i class="fas fa-lightbulb me-2"></i>字段说明</h6>
+                                    <div class="field-docs">
+                                        <div class="field-doc-item">
+                                            <code>event_type</code>
+                                            <small class="text-muted d-block">事件类型标识</small>
+                                        </div>
+                                        <div class="field-doc-item">
+                                            <code>log_data</code>
+                                            <small class="text-muted d-block">核心日志数据</small>
+                                        </div>
+                                        <div class="field-doc-item">
+                                            <code>log_data.src_ip</code>
+                                            <small class="text-muted d-block">源IP地址</small>
+                                        </div>
+                                        <div class="field-doc-item">
+                                            <code>log_data.dst_ip</code>
+                                            <small class="text-muted d-block">目标IP地址</small>
+                                        </div>
+                                        <div class="field-doc-item">
+                                            <code>log_data.username</code>
+                                            <small class="text-muted d-block">用户名</small>
+                                        </div>
+                                        <div class="field-doc-item">
+                                            <code>log_data.action</code>
+                                            <small class="text-muted d-block">执行的动作</small>
+                                        </div>
+                                        <div class="field-doc-item">
+                                            <code>log_data.severity</code>
+                                            <small class="text-muted d-block">严重等级</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary" id="json-execute-btn" onclick="executeJsonEvent()">
+                                    <i class="fas fa-play me-2"></i>执行事件分析
+                                </button>
+                                <button class="btn btn-outline-secondary ms-2" onclick="previewJsonEvent()">
+                                    <i class="fas fa-eye me-2"></i>预览效果
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
