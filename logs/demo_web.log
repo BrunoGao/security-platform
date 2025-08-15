@@ -1,4 +1,83 @@
-Traceback (most recent call last):
-  File "/Users/brunogao/work/tools/security-platform/demo_web_manager.py", line 20, in <module>
-    from flask import Flask, request, jsonify, render_template, Response
-ModuleNotFoundError: No module named 'flask'
+2025-08-12 17:24:45,356 - werkzeug - WARNING - Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+🚀 启动安全告警分析系统演示管理界面...
+📱 访问地址: http://localhost:5115
+ * Serving Flask app 'demo_web_manager'
+ * Debug mode: off
+2025-08-12 17:24:45,402 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5115
+ * Running on http://156.244.45.101:5115
+2025-08-12 17:24:45,403 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-12 17:24:46,318 - werkzeug - INFO - 127.0.0.1 - - [12/Aug/2025 17:24:46] "GET / HTTP/1.1" 200 -
+2025-08-12 17:24:48,364 - werkzeug - INFO - 127.0.0.1 - - [12/Aug/2025 17:24:48] "GET / HTTP/1.1" 200 -
+2025-08-13 10:20:07,443 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:07] "GET / HTTP/1.1" 200 -
+2025-08-13 10:20:07,833 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:07] "GET /static/css/demo_styles.css HTTP/1.1" 200 -
+2025-08-13 10:20:08,173 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:08] "GET /static/js/demo_app.js HTTP/1.1" 200 -
+2025-08-13 10:20:09,704 - __main__ - INFO - 执行命令: docker version --format "{{.Server.Version}}" (工作目录: None)
+2025-08-13 10:20:09,730 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:09] "GET /socket.io/?EIO=4&transport=polling&t=PYXEamp HTTP/1.1" 200 -
+2025-08-13 10:20:09,752 - __main__ - INFO - 命令执行完成: docker version --format "{{.Server.Version}}" (耗时: 0.05s, 返回码: 0)
+2025-08-13 10:20:09,753 - __main__ - INFO - 执行命令: docker-compose ps --format json (工作目录: None)
+2025-08-13 10:20:09,996 - __main__ - INFO - 命令执行完成: docker-compose ps --format json (耗时: 0.24s, 返回码: 0)
+2025-08-13 10:20:10,027 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:10] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-13 10:20:10,202 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:10] "POST /socket.io/?EIO=4&transport=polling&t=PYXEauk&sid=dBgE8_Mmw19UHaFNAAAA HTTP/1.1" 200 -
+2025-08-13 10:20:10,208 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:10] "GET /socket.io/?EIO=4&transport=polling&t=PYXEauk.0&sid=dBgE8_Mmw19UHaFNAAAA HTTP/1.1" 200 -
+2025-08-13 10:20:10,529 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:10] "GET /socket.io/?EIO=4&transport=polling&t=PYXEa-S&sid=dBgE8_Mmw19UHaFNAAAA HTTP/1.1" 200 -
+2025-08-13 10:20:12,981 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 10:20:12] "GET /socket.io/?EIO=4&transport=websocket&sid=dBgE8_Mmw19UHaFNAAAA HTTP/1.1" 200 -
+2025-08-13 18:46:57,146 - werkzeug - ERROR - 176.65.148.208 - - [13/Aug/2025 18:46:57] code 400, message Bad request syntax ('SSH-2.0-OpenSSH')
+2025-08-13 18:46:57,147 - werkzeug - INFO - 176.65.148.208 - - [13/Aug/2025 18:46:57] "[31m[1mSSH-2.0-OpenSSH[0m" 400 -
+2025-08-13 23:19:25,720 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:25] "GET / HTTP/1.1" 200 -
+2025-08-13 23:19:26,406 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:26] "[36mGET /static/css/demo_styles.css HTTP/1.1[0m" 304 -
+2025-08-13 23:19:26,686 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:26] "[36mGET /static/js/demo_app.js HTTP/1.1[0m" 304 -
+2025-08-13 23:19:26,999 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:26] "GET /socket.io/?EIO=4&transport=polling&t=PYa0yCm HTTP/1.1" 200 -
+2025-08-13 23:19:27,122 - __main__ - INFO - 执行命令: docker version --format "{{.Server.Version}}" (工作目录: None)
+2025-08-13 23:19:27,213 - __main__ - INFO - 命令执行完成: docker version --format "{{.Server.Version}}" (耗时: 0.09s, 返回码: 0)
+2025-08-13 23:19:27,214 - __main__ - INFO - 执行命令: docker-compose ps --format json (工作目录: None)
+2025-08-13 23:19:27,322 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:27] "POST /socket.io/?EIO=4&transport=polling&t=PYa0yHp&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-13 23:19:27,401 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:27] "GET /socket.io/?EIO=4&transport=polling&t=PYa0yHp.0&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-13 23:19:27,485 - __main__ - INFO - 命令执行完成: docker-compose ps --format json (耗时: 0.27s, 返回码: 0)
+2025-08-13 23:19:27,495 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:27] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-13 23:19:27,815 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:27] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-13 23:19:28,004 - __main__ - INFO - 获取系统信息...
+2025-08-13 23:19:28,007 - __main__ - INFO - 系统信息获取完成 (耗时: 0.003s, CPU: 8.4%, 内存: 95.6%, 磁盘: 79.5%)
+2025-08-13 23:19:28,008 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:28] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-13 23:19:28,031 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:28] "GET /api/logs?limit=50 HTTP/1.1" 200 -
+2025-08-13 23:19:28,338 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:28] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-13 23:19:48,011 - __main__ - INFO - 执行命令: docker version --format "{{.Server.Version}}" (工作目录: None)
+2025-08-13 23:19:48,068 - __main__ - INFO - 命令执行完成: docker version --format "{{.Server.Version}}" (耗时: 0.06s, 返回码: 0)
+2025-08-13 23:19:48,068 - __main__ - INFO - 执行命令: docker-compose ps --format json (工作目录: None)
+2025-08-13 23:19:48,236 - __main__ - INFO - 命令执行完成: docker-compose ps --format json (耗时: 0.17s, 返回码: 0)
+2025-08-13 23:19:48,242 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:48] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-13 23:19:48,626 - __main__ - INFO - 获取系统信息...
+2025-08-13 23:19:48,626 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 34.3%, 内存: 94.5%, 磁盘: 79.5%)
+2025-08-13 23:19:48,627 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:48] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-13 23:19:52,000 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:51] "GET /socket.io/?EIO=4&transport=polling&t=PYa0yQH&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-13 23:19:52,373 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:19:52] "POST /socket.io/?EIO=4&transport=polling&t=PYa12OY&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-13 23:20:07,939 - __main__ - INFO - 执行命令: docker version --format "{{.Server.Version}}" (工作目录: None)
+2025-08-13 23:20:08,006 - __main__ - INFO - 命令执行完成: docker version --format "{{.Server.Version}}" (耗时: 0.07s, 返回码: 0)
+2025-08-13 23:20:08,006 - __main__ - INFO - 执行命令: docker-compose ps --format json (工作目录: None)
+2025-08-13 23:20:08,164 - __main__ - INFO - 命令执行完成: docker-compose ps --format json (耗时: 0.16s, 返回码: 0)
+2025-08-13 23:20:08,173 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:08] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-13 23:20:08,621 - __main__ - INFO - 获取系统信息...
+2025-08-13 23:20:08,621 - __main__ - INFO - 系统信息获取完成 (耗时: 0.001s, CPU: 34.7%, 内存: 93.8%, 磁盘: 79.5%)
+2025-08-13 23:20:08,622 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:08] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-13 23:20:17,374 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:17] "GET /socket.io/?EIO=4&transport=polling&t=PYa12OZ&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-13 23:20:17,759 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:17] "POST /socket.io/?EIO=4&transport=polling&t=PYa18bA&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-13 23:20:27,862 - __main__ - INFO - 执行命令: docker version --format "{{.Server.Version}}" (工作目录: None)
+2025-08-13 23:20:27,910 - __main__ - INFO - 命令执行完成: docker version --format "{{.Server.Version}}" (耗时: 0.05s, 返回码: 0)
+2025-08-13 23:20:27,910 - __main__ - INFO - 执行命令: docker-compose ps --format json (工作目录: None)
+2025-08-13 23:20:28,058 - __main__ - INFO - 命令执行完成: docker-compose ps --format json (耗时: 0.15s, 返回码: 0)
+2025-08-13 23:20:28,064 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:28] "GET /api/system/status HTTP/1.1" 200 -
+2025-08-13 23:20:28,387 - __main__ - INFO - 获取系统信息...
+2025-08-13 23:20:28,388 - __main__ - INFO - 系统信息获取完成 (耗时: 0.000s, CPU: 34.4%, 内存: 94.1%, 磁盘: 79.5%)
+2025-08-13 23:20:28,388 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:28] "GET /api/system/info HTTP/1.1" 200 -
+2025-08-13 23:20:42,759 - werkzeug - INFO - 156.244.45.101 - - [13/Aug/2025 23:20:42] "GET /socket.io/?EIO=4&transport=polling&t=PYa18bA.0&sid=3xNPw1ffU28y8-O7AAAC HTTP/1.1" 200 -
+2025-08-14 11:16:04,313 - werkzeug - INFO - 87.236.176.96 - - [14/Aug/2025 11:16:04] "GET / HTTP/1.1" 200 -
+2025-08-14 12:18:37,459 - werkzeug - ERROR - 192.155.90.220 - - [14/Aug/2025 12:18:37] code 400, message Bad request syntax ('\x16\x03\x01\x01')
+2025-08-14 12:18:37,460 - werkzeug - INFO - 192.155.90.220 - - [14/Aug/2025 12:18:37] "[31m[1m\x16\x03\x01\x01[0m" 400 -
+2025-08-14 12:18:37,586 - werkzeug - ERROR - 192.155.90.220 - - [14/Aug/2025 12:18:37] code 400, message Bad request syntax ('\x16\x03\x01\x01')
+2025-08-14 12:18:37,586 - werkzeug - INFO - 192.155.90.220 - - [14/Aug/2025 12:18:37] "[31m[1m\x16\x03\x01\x01[0m" 400 -
+2025-08-14 20:45:50,021 - werkzeug - INFO - 66.175.213.4 - - [14/Aug/2025 20:45:50] "GET / HTTP/1.1" 200 -
+2025-08-15 05:24:57,530 - werkzeug - ERROR - 104.152.52.244 - - [15/Aug/2025 05:24:57] code 400, message Bad request version ('À\x13À')
+2025-08-15 05:24:57,531 - werkzeug - INFO - 104.152.52.244 - - [15/Aug/2025 05:24:57] "[31m[1m\x16\x03\x01\x00æ\x01\x00\x00â\x03\x03;«\x88\x99ø\x03I²ìñ\x85³þnÑ\x00X@Ü-º\x13ZÆWªå´³ÆE! \x04\x80¼!fZ\x17aZNOéð·i\x02\x86\x802%Þ\x998r-¶Þ¦ì\x80°¶\x00\x1aÀ+À/À,À0Ì©Ì¨À\x09À\x13À[0m" 400 -
+2025-08-15 05:24:57,647 - werkzeug - INFO - 104.152.52.235 - - [15/Aug/2025 05:24:57] "GET / HTTP/1.1" 200 -
+2025-08-15 05:24:57,832 - werkzeug - INFO - 104.152.52.235 - - [15/Aug/2025 05:24:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

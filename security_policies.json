@@ -1,0 +1,59 @@
+{
+  "policies": [
+    {
+      "policy_id": "default_brute_force_detection",
+      "name": "暴力破解检测策略",
+      "description": "检测短时间内多次登录失败的暴力破解行为",
+      "severity": "high",
+      "enabled": true,
+      "rules": [
+        {
+          "rule_id": "brute_force_rule_1",
+          "name": "多次登录失败检测",
+          "condition": "event_type == 'security_brute_force' AND log_data.action == 'failed_login'",
+          "action": "alert",
+          "threshold": {
+            "count": 5,
+            "time_window": "5m"
+          },
+          "description": "5分钟内超过5次登录失败触发告警"
+        }
+      ],
+      "metadata": {
+        "created_by": "system",
+        "created_at": "2025-08-12T17:24:45.338096",
+        "version": "1.0",
+        "tags": [
+          "authentication",
+          "brute_force"
+        ]
+      }
+    },
+    {
+      "policy_id": "default_lateral_movement_detection",
+      "name": "横向移动检测策略",
+      "description": "检测网络内部的横向移动和权限提升行为",
+      "severity": "critical",
+      "enabled": true,
+      "rules": [
+        {
+          "rule_id": "lateral_rule_1",
+          "name": "异常内网连接检测",
+          "condition": "event_type == 'security_lateral_movement' AND log_data.src_ip LIKE '192.168.*'",
+          "action": "alert",
+          "description": "检测内网间的异常连接行为"
+        }
+      ],
+      "metadata": {
+        "created_by": "system",
+        "created_at": "2025-08-12T17:24:45.338096",
+        "version": "1.0",
+        "tags": [
+          "lateral_movement",
+          "internal"
+        ]
+      }
+    }
+  ],
+  "updated_at": "2025-08-12T17:24:45.338127"
+}

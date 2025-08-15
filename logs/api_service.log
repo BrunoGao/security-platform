@@ -1,10 +1,189 @@
-INFO:     Will watch for changes in these directories: ['/Users/brunogao/work/tools/security-platform']
+INFO:     Will watch for changes in these directories: ['/root/codes/security-platform']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [63041] using WatchFiles
-INFO:     Started server process [63048]
+INFO:     Started reloader process [1376280] using WatchFiles
+INFO:     Started server process [1376287]
 INFO:     Waiting for application startup.
 INFO:src.apis.security_api:Security Analysis Service started successfully
 INFO:     Application startup complete.
-INFO:     127.0.0.1:60186 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60255 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60331 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38888 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51060 - "GET /health HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     198.235.24.192:60366 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     164.90.156.129:51202 - "GET / HTTP/1.1" 200 OK
+INFO:     164.90.156.129:51214 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     167.94.145.101:49194 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.145.101:60380 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.145.101:60400 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.145.101:36346 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     3.130.96.91:39420 - "GET / HTTP/1.1" 200 OK
+INFO:     3.130.96.91:56788 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     207.90.244.21:42576 - "GET / HTTP/1.1" 200 OK
+INFO:     207.90.244.21:42586 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     210.16.164.103:49458 - "GET / HTTP/1.1" 200 OK
+INFO:     210.16.164.103:49458 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     3.130.96.91:39158 - "GET / HTTP/1.1" 200 OK
+INFO:     3.130.96.91:39700 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     3.130.96.91:40102 - "GET / HTTP/1.1" 200 OK
+INFO:     3.130.96.91:53610 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     44.244.219.19:46030 - "GET / HTTP/1.1" 200 OK
+INFO:     199.45.154.119:41890 - "GET / HTTP/1.1" 200 OK
+INFO:     199.45.154.119:54322 - "GET / HTTP/1.1" 200 OK
+INFO:     199.45.154.119:54330 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     199.45.154.119:33680 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     77.110.113.96:39194 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     170.64.170.139:37096 - "GET / HTTP/1.1" 200 OK
+INFO:     170.64.170.139:37106 - "GET /login HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:33460 - "GET /health HTTP/1.1" 200 OK
+INFO:     156.244.45.101:47034 - "GET / HTTP/1.1" 200 OK
+INFO:     156.244.45.101:47034 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57746 - "GET / HTTP/1.1" 200 OK
+INFO:     198.235.24.50:62272 - "GET / HTTP/1.1" 200 OK
+INFO:     34.38.35.110:34166 - "GET / HTTP/1.1" 200 OK
+INFO:     198.235.24.209:60132 - "GET / HTTP/1.1" 200 OK
+INFO:     20.106.57.180:42166 - "GET / HTTP/1.1" 200 OK
+INFO:     5.181.2.18:59388 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:36576 - "POST /api/v1/default/projects/create HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52284 - "GET /ui/ HTTP/1.0" 404 Not Found
+INFO:     34.79.208.213:46530 - "GET / HTTP/1.0" 200 OK
+INFO:     34.79.208.213:59056 - "POST /sdk HTTP/1.1" 404 Not Found
+INFO:     34.79.208.213:59086 - "GET /nmaplowercheck1755077177 HTTP/1.1" 404 Not Found
+INFO:     34.79.208.213:59070 - "GET / HTTP/1.0" 200 OK
+INFO:     34.79.208.213:59094 - "GET /evox/about HTTP/1.1" 404 Not Found
+INFO:     34.79.208.213:59110 - "GET /HNAP1 HTTP/1.1" 404 Not Found
+INFO:     34.79.208.213:59116 - "GET / HTTP/1.0" 200 OK
+INFO:     34.79.208.213:59122 - "GET / HTTP/1.1" 200 OK
+INFO:     34.78.185.144:52518 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     71.6.134.230:53826 - "GET / HTTP/1.1" 200 OK
+INFO:     71.6.134.230:60036 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     172.234.217.129:58756 - "GET / HTTP/1.1" 200 OK
+INFO:     205.210.31.106:59952 - "GET / HTTP/1.1" 200 OK
+INFO:     65.49.1.142:43230 - "GET / HTTP/1.1" 200 OK
+INFO:     65.49.1.149:25725 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     65.49.1.147:15999 - "GET /?format=json HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:39592 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39602 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53204 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54800 - "GET /health HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     134.209.80.77:41332 - "GET / HTTP/1.1" 200 OK
+INFO:     134.209.80.77:41344 - "GET /login HTTP/1.1" 404 Not Found
+INFO:     3.137.73.221:53886 - "GET / HTTP/1.1" 200 OK
+INFO:     3.137.73.221:59214 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     207.90.244.21:44844 - "GET / HTTP/1.1" 200 OK
+INFO:     207.90.244.21:54818 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     178.128.231.14:47984 - "GET / HTTP/1.1" 200 OK
+INFO:     178.128.231.14:47996 - "GET /login HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     162.142.125.220:60982 - "GET / HTTP/1.1" 200 OK
+INFO:     162.142.125.220:46998 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     162.142.125.220:44406 - "GET / HTTP/1.1" 200 OK
+INFO:     45.156.128.126:59011 - "GET / HTTP/1.1" 200 OK
+INFO:     64.62.197.62:60040 - "GET / HTTP/1.1" 200 OK
+INFO:     64.62.197.69:26655 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     64.62.197.65:24055 - "GET /?format=json HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     93.123.109.222:33504 - "GET /home HTTP/1.1" 404 Not Found
+INFO:     194.187.179.122:54408 - "GET / HTTP/1.1" 200 OK
+INFO:     194.187.179.190:54412 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     195.184.76.146:34285 - "GET / HTTP/1.1" 200 OK
+INFO:     91.230.168.106:59083 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     198.235.24.237:59740 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.146.56:36594 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.146.56:36598 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.146.56:51204 - "GET / HTTP/1.1" 200 OK
+INFO:     188.166.238.42:34636 - "POST /_ignition/execute-solution HTTP/1.1" 404 Not Found
+INFO:     106.75.87.37:55696 - "GET /api/v2/heartbeat HTTP/1.1" 404 Not Found
+INFO:     106.75.87.37:55992 - "GET / HTTP/1.1" 200 OK
+INFO:     106.75.177.37:64112 - "GET / HTTP/1.1" 200 OK
+INFO:     106.75.177.37:64254 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     185.247.137.60:40483 - "GET / HTTP/1.1" 200 OK
+INFO:     34.78.183.19:59356 - "GET / HTTP/1.0" 200 OK
+INFO:     34.78.183.19:39060 - "POST /sdk HTTP/1.1" 404 Not Found
+INFO:     34.78.183.19:39062 - "GET / HTTP/1.0" 200 OK
+INFO:     34.78.183.19:39072 - "GET /nmaplowercheck1755168203 HTTP/1.1" 404 Not Found
+INFO:     34.78.183.19:39084 - "GET /evox/about HTTP/1.1" 404 Not Found
+INFO:     34.78.183.19:39096 - "GET /HNAP1 HTTP/1.1" 404 Not Found
+INFO:     34.78.183.19:39112 - "GET / HTTP/1.0" 200 OK
+INFO:     34.78.183.19:39120 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     138.36.152.214:61001 - "GET / HTTP/1.0" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     91.196.152.224:32931 - "GET / HTTP/1.1" 200 OK
+INFO:     91.196.152.145:37005 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     34.79.200.193:36218 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     195.184.76.143:40325 - "GET / HTTP/1.1" 200 OK
+INFO:     195.184.76.213:49619 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     3.130.96.91:57360 - "GET / HTTP/1.1" 200 OK
+INFO:     3.130.96.91:37980 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     147.185.132.123:57378 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     146.190.144.148:45772 - "GET / HTTP/1.1" 200 OK
+INFO:     146.190.144.148:45778 - "GET /login HTTP/1.1" 404 Not Found
+INFO:     164.92.106.15:39698 - "GET / HTTP/1.1" 200 OK
+INFO:     164.92.106.15:39708 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     104.152.52.133:33605 - "GET / HTTP/1.1" 200 OK
+INFO:     147.185.132.117:59294 - "GET / HTTP/1.1" 200 OK
+INFO:     87.120.222.241:51028 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     91.196.152.123:41897 - "GET / HTTP/1.1" 200 OK
+INFO:     91.231.89.85:55253 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     205.210.31.128:61436 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.146.56:52834 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.146.56:36044 - "GET / HTTP/1.1" 200 OK
+INFO:     167.94.146.56:36046 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+WARNING:  Invalid HTTP request received.
+INFO:     167.94.146.56:33958 - "GET / HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     165.232.41.137:53172 - "GET / HTTP/1.1" 200 OK

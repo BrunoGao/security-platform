@@ -1,1 +1,3 @@
-unable to get image 'redis:6.2-alpine': Cannot connect to the Docker daemon at unix:///Users/brunogao/.orbstack/run/docker.sock. Is the docker daemon running?
+ Network security-analysis_security-network  Creating
+ Network security-analysis_security-network  Error
+failed to create network security-analysis_security-network: Error response from daemon: invalid pool request: Pool overlaps with other one on this address space

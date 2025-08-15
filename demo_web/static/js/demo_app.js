@@ -459,12 +459,38 @@ class DemoApp {
             });
         }
         
-        // 添加实时分析日志
+        // 添加策略匹配信息到日志
+        if (data.matched_policy) {
+            this.addLogEntry({
+                timestamp: new Date().toISOString(),
+                level: 'SUCCESS',
+                message: `🛡️ 触发安全策略: ${data.matched_policy.policy_name}`
+            });
+            
+            if (data.matched_policy.description) {
+                this.addLogEntry({
+                    timestamp: new Date().toISOString(),
+                    level: 'INFO',
+                    message: `📋 策略描述: ${data.matched_policy.description}`
+                });
+            }
+        }
+        
+        // 添加实体分析日志
         this.addLogEntry({
             timestamp: new Date().toISOString(),
             level: 'INFO',
             message: `🔍 实体分析完成: ${data.entities?.length || 0} 个实体，最高风险: ${data.max_risk_score?.toFixed(1) || 0}`
         });
+        
+        // 如果没有匹配的策略，提示用户
+        if (!data.matched_policy) {
+            this.addLogEntry({
+                timestamp: new Date().toISOString(),
+                level: 'WARNING',
+                message: '⚠️ 未匹配到任何安全策略，建议检查策略配置'
+            });
+        }
     }
     
     updateDemoStage(stageId, data) {
@@ -646,6 +672,25 @@ async function showDemoScenarios() {
         
         let html = '';
         data.scenarios.forEach(scenario => {
+            // 构建策略信息
+            let policiesHtml = '';
+            if (scenario.related_policies && scenario.related_policies.length > 0) {
+                policiesHtml = '<div class="scenario-policies mt-2">';
+                policiesHtml += '<small class="text-muted d-block"><i class="fas fa-shield-alt me-1"></i>相关策略:</small>';
+                scenario.related_policies.forEach(policy => {
+                    const statusClass = policy.enabled ? 'text-success' : 'text-danger';
+                    const statusIcon = policy.enabled ? 'fas fa-check-circle' : 'fas fa-times-circle';
+                    policiesHtml += `
+                        <small class="d-block ${statusClass}">
+                            <i class="${statusIcon} me-1"></i>${policy.name}
+                        </small>
+                    `;
+                });
+                policiesHtml += '</div>';
+            } else {
+                policiesHtml = '<div class="scenario-policies mt-2"><small class="text-warning"><i class="fas fa-exclamation-triangle me-1"></i>暂无关联策略，建议先创建相应的检测策略</small></div>';
+            }
+            
             html += `
                 <div class="scenario-card" onclick="runDemoScenario('${scenario.id}')">
                     <div class="scenario-title">${scenario.name}</div>
@@ -654,6 +699,7 @@ async function showDemoScenarios() {
                         <span><i class="fas fa-calendar me-1"></i>事件数: ${scenario.events}</span>
                         <span><i class="fas fa-clock me-1"></i>持续时间: ${scenario.duration}</span>
                     </div>
+                    ${policiesHtml}
                 </div>
             `;
         });
@@ -1913,6 +1959,935 @@ async function createTestEvent() {
     // This is now handled by showEventCreator
     showEventCreator();
 }
+
+// Security Policy Management Functions
+let currentPolicyData = null;
+let selectedPoliciesForExport = new Set();
+
+function showSecurityPolicies() {
+    loadPoliciesList();
+    const modal = new bootstrap.Modal(document.getElementById('securityPoliciesModal'));
+    modal.show();
+}
+
+async function loadPoliciesList() {
+    try {
+        const response = await fetch('/api/policies');
+        const data = await response.json();
+        
+        const container = document.getElementById('policies-list');
+        if (!container) return;
+        
+        let html = '';
+        if (data.policies && data.policies.length > 0) {
+            data.policies.forEach(policy => {
+                const statusBadge = policy.enabled ? 
+                    '<span class="badge bg-success">已启用</span>' : 
+                    '<span class="badge bg-secondary">已禁用</span>';
+                
+                const severityColor = {
+                    'low': 'text-success',
+                    'medium': 'text-warning',
+                    'high': 'text-danger',
+                    'critical': 'text-danger'
+                }[policy.severity] || 'text-muted';
+                
+                html += `
+                    <div class="policy-card mb-3" data-policy-id="${policy.policy_id}">
+                        <div class="card bg-secondary">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h6 class="card-title mb-1">
+                                            <i class="fas fa-shield-alt me-2"></i>${policy.name}
+                                            ${statusBadge}
+                                        </h6>
+                                        <p class="card-text text-muted mb-2">${policy.description}</p>
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>创建: ${new Date(policy.created_at).toLocaleDateString()}
+                                            <i class="fas fa-exclamation-triangle ms-3 me-1 ${severityColor}"></i>严重度: ${policy.severity}
+                                            <i class="fas fa-list-ul ms-3 me-1"></i>规则数: ${policy.rules?.length || 0}
+                                        </small>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-outline-info btn-sm" onclick="editPolicy('${policy.policy_id}')" title="编辑">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-outline-success btn-sm" onclick="testPolicy('${policy.policy_id}')" title="测试">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                            <button class="btn btn-outline-${policy.enabled ? 'warning' : 'success'} btn-sm" 
+                                                    onclick="togglePolicy('${policy.policy_id}', ${!policy.enabled})" 
+                                                    title="${policy.enabled ? '禁用' : '启用'}">
+                                                <i class="fas fa-${policy.enabled ? 'pause' : 'play'}"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm" onclick="deletePolicy('${policy.policy_id}')" title="删除">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        } else {
+            html = `
+                <div class="text-center text-muted p-4">
+                    <i class="fas fa-shield-alt fa-3x mb-3 opacity-50"></i>
+                    <h5>暂无安全策略</h5>
+                    <p>点击"新建策略"或"导入策略"开始创建您的第一个安全策略</p>
+                    <button class="btn btn-primary" onclick="createNewPolicy()">
+                        <i class="fas fa-plus me-1"></i>新建策略
+                    </button>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = html;
+        
+    } catch (error) {
+        console.error('加载策略列表失败:', error);
+        window.demoApp.showNotification('加载策略列表失败', 'error');
+    }
+}
+
+function searchPolicies() {
+    const searchTerm = document.getElementById('policy-search').value.toLowerCase();
+    const policyCards = document.querySelectorAll('.policy-card');
+    
+    policyCards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const description = card.querySelector('.card-text').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function createNewPolicy() {
+    // Switch to editor tab with template
+    document.getElementById('policy-editor-tab').click();
+    
+    const defaultPolicy = {
+        policy_id: `policy_${Date.now()}`,
+        name: "新建安全策略",
+        description: "请在此输入策略描述",
+        severity: "medium",
+        enabled: true,
+        rules: [
+            {
+                rule_id: "rule_1",
+                name: "规则1",
+                condition: "event_type == 'security_alert'",
+                action: "alert",
+                description: "检测安全告警事件"
+            }
+        ],
+        metadata: {
+            created_by: "admin",
+            created_at: new Date().toISOString(),
+            version: "1.0"
+        }
+    };
+    
+    document.getElementById('policy-editor').value = JSON.stringify(defaultPolicy, null, 2);
+    validatePolicyEditor();
+}
+
+// Policy Import Functions
+function handlePolicyDragOver(event) {
+    event.preventDefault();
+    document.getElementById('policy-upload-area').classList.add('dragover');
+}
+
+function handlePolicyDrop(event) {
+    event.preventDefault();
+    const area = document.getElementById('policy-upload-area');
+    area.classList.remove('dragover');
+    
+    const files = event.dataTransfer.files;
+    if (files.length > 0) {
+        processPolicyFile(files[0]);
+    }
+}
+
+function handlePolicyFileSelect(event) {
+    const files = event.target.files;
+    if (files.length > 0) {
+        processPolicyFile(files[0]);
+    }
+}
+
+async function processPolicyFile(file) {
+    try {
+        const text = await file.text();
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        
+        let policyData;
+        if (fileExtension === 'json') {
+            policyData = JSON.parse(text);
+        } else if (fileExtension === 'yaml' || fileExtension === 'yml') {
+            policyData = parseSimpleYaml(text);
+        } else if (fileExtension === 'xml') {
+            window.demoApp.showNotification('XML格式暂不支持，请使用JSON或YAML格式', 'warning');
+            return;
+        }
+        
+        currentPolicyData = policyData;
+        
+        // Show preview
+        const preview = document.getElementById('policy-preview');
+        preview.innerHTML = `<pre>${escapeHtml(JSON.stringify(policyData, null, 2))}</pre>`;
+        
+        // Enable import button
+        document.getElementById('policy-import-btn').disabled = false;
+        
+        // Update upload area
+        const area = document.getElementById('policy-upload-area');
+        area.classList.add('success');
+        area.innerHTML = `
+            <i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
+            <p class="mb-1">文件已加载: ${file.name}</p>
+            <p class="text-muted small">找到 ${Array.isArray(policyData) ? policyData.length : 1} 个策略</p>
+        `;
+        
+        window.demoApp.showNotification(`策略文件加载成功: ${file.name}`, 'success');
+        
+    } catch (error) {
+        console.error('策略文件处理失败:', error);
+        window.demoApp.showNotification('策略文件格式错误', 'error');
+    }
+}
+
+function loadPolicyTemplate(templateType) {
+    const templates = {
+        brute_force_detection: {
+            policy_id: "brute_force_detection",
+            name: "暴力破解检测策略",
+            description: "检测短时间内多次登录失败的暴力破解行为",
+            severity: "high",
+            enabled: true,
+            rules: [
+                {
+                    rule_id: "brute_force_rule_1",
+                    name: "多次登录失败检测",
+                    condition: "event_type == 'security_brute_force' AND log_data.action == 'failed_login'",
+                    action: "alert",
+                    threshold: {
+                        count: 5,
+                        time_window: "5m"
+                    },
+                    description: "5分钟内超过5次登录失败触发告警"
+                },
+                {
+                    rule_id: "brute_force_rule_2",
+                    name: "异常源IP检测",
+                    condition: "log_data.src_ip NOT IN known_ips",
+                    action: "block",
+                    description: "来自未知IP的登录尝试"
+                }
+            ],
+            metadata: {
+                created_by: "system",
+                created_at: new Date().toISOString(),
+                version: "1.0",
+                tags: ["authentication", "brute_force", "security"]
+            }
+        },
+        lateral_movement_detection: {
+            policy_id: "lateral_movement_detection",
+            name: "横向移动检测策略",
+            description: "检测网络内部的横向移动和权限提升行为",
+            severity: "critical",
+            enabled: true,
+            rules: [
+                {
+                    rule_id: "lateral_rule_1",
+                    name: "异常内网连接检测",
+                    condition: "event_type == 'security_lateral_movement' AND log_data.src_ip LIKE '192.168.*'",
+                    action: "alert",
+                    description: "检测内网间的异常连接行为"
+                },
+                {
+                    rule_id: "lateral_rule_2",
+                    name: "权限提升检测",
+                    condition: "log_data.action == 'privilege_escalation'",
+                    action: "alert",
+                    severity: "critical",
+                    description: "检测权限提升尝试"
+                }
+            ],
+            metadata: {
+                created_by: "system", 
+                created_at: new Date().toISOString(),
+                version: "1.0",
+                tags: ["lateral_movement", "privilege_escalation", "internal"]
+            }
+        },
+        data_exfiltration_detection: {
+            policy_id: "data_exfiltration_detection",
+            name: "数据泄露检测策略",
+            description: "检测大量数据外传和敏感文件访问行为",
+            severity: "critical",
+            enabled: true,
+            rules: [
+                {
+                    rule_id: "exfiltration_rule_1",
+                    name: "大数据量传输检测",
+                    condition: "event_type == 'security_data_exfiltration' AND log_data.data_size > '100MB'",
+                    action: "alert",
+                    description: "检测大于100MB的数据传输"
+                },
+                {
+                    rule_id: "exfiltration_rule_2", 
+                    name: "敏感文件访问检测",
+                    condition: "log_data.file_types CONTAINS 'database' OR log_data.file_types CONTAINS 'financial'",
+                    action: "block",
+                    description: "检测对敏感数据类型的访问"
+                }
+            ],
+            metadata: {
+                created_by: "system",
+                created_at: new Date().toISOString(),
+                version: "1.0",
+                tags: ["data_exfiltration", "sensitive_data", "dLP"]
+            }
+        }
+    };
+    
+    const template = templates[templateType];
+    if (template) {
+        currentPolicyData = template;
+        document.getElementById('policy-preview').innerHTML = `<pre>${escapeHtml(JSON.stringify(template, null, 2))}</pre>`;
+        document.getElementById('policy-import-btn').disabled = false;
+        
+        // Update upload area
+        const area = document.getElementById('policy-upload-area');
+        area.classList.add('success');
+        area.innerHTML = `
+            <i class="fas fa-file-alt fa-2x mb-2 text-info"></i>
+            <p class="mb-1">已加载模板: ${template.name}</p>
+            <p class="text-muted small">包含 ${template.rules.length} 个检测规则</p>
+        `;
+    }
+}
+
+async function importPolicies() {
+    if (!currentPolicyData) {
+        window.demoApp.showNotification('请先选择策略文件', 'warning');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/policies/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ policies: Array.isArray(currentPolicyData) ? currentPolicyData : [currentPolicyData] })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            window.demoApp.showNotification(`成功导入 ${data.imported_count} 个策略`, 'success');
+            
+            // Refresh policy list
+            loadPoliciesList();
+            
+            // Switch back to list tab
+            document.getElementById('policy-list-tab').click();
+            
+            // Reset import area
+            resetPolicyImportArea();
+        } else {
+            window.demoApp.showNotification(`导入失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('导入策略失败:', error);
+        window.demoApp.showNotification('导入策略失败', 'error');
+    }
+}
+
+function resetPolicyImportArea() {
+    const area = document.getElementById('policy-upload-area');
+    area.classList.remove('success');
+    area.innerHTML = `
+        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+        <p class="mb-1">拖放策略文件到此处</p>
+        <p class="text-muted small">支持 JSON、YAML、XML 格式</p>
+    `;
+    
+    document.getElementById('policy-preview').innerHTML = `
+        <div class="text-center text-muted p-4">
+            选择或导入策略文件进行预览
+        </div>
+    `;
+    
+    document.getElementById('policy-import-btn').disabled = true;
+    currentPolicyData = null;
+}
+
+function downloadPolicyTemplate() {
+    const template = {
+        policy_id: "example_policy",
+        name: "示例安全策略",
+        description: "这是一个示例安全策略，展示了策略的基本结构",
+        severity: "medium",
+        enabled: true,
+        rules: [
+            {
+                rule_id: "example_rule_1",
+                name: "示例规则1",
+                condition: "event_type == 'security_alert' AND log_data.severity == 'high'",
+                action: "alert",
+                description: "检测高严重度安全告警"
+            }
+        ],
+        metadata: {
+            created_by: "admin",
+            created_at: new Date().toISOString(),
+            version: "1.0",
+            tags: ["example", "template"]
+        }
+    };
+    
+    const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'security_policy_template.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    window.demoApp.showNotification('策略模板已下载', 'success');
+}
+
+// Policy Editor Functions
+function switchPolicyFormat() {
+    const format = document.getElementById('policy-format-select').value;
+    const editor = document.getElementById('policy-editor');
+    
+    try {
+        if (!editor.value.trim()) return;
+        
+        const currentData = JSON.parse(editor.value);
+        
+        if (format === 'yaml') {
+            // Simple JSON to YAML conversion
+            editor.value = jsonToSimpleYaml(currentData);
+        } else {
+            // Format as JSON
+            editor.value = JSON.stringify(currentData, null, 2);
+        }
+        
+        validatePolicyEditor();
+        
+    } catch (error) {
+        window.demoApp.showNotification('格式转换失败，请检查当前内容', 'error');
+    }
+}
+
+function jsonToSimpleYaml(obj, indent = 0) {
+    let yaml = '';
+    const spaces = '  '.repeat(indent);
+    
+    for (const [key, value] of Object.entries(obj)) {
+        if (typeof value === 'object' && value !== null) {
+            if (Array.isArray(value)) {
+                yaml += `${spaces}${key}:\n`;
+                value.forEach(item => {
+                    if (typeof item === 'object') {
+                        yaml += `${spaces}- \n`;
+                        yaml += jsonToSimpleYaml(item, indent + 1).replace(/^/gm, '  ');
+                    } else {
+                        yaml += `${spaces}- ${item}\n`;
+                    }
+                });
+            } else {
+                yaml += `${spaces}${key}:\n`;
+                yaml += jsonToSimpleYaml(value, indent + 1);
+            }
+        } else {
+            yaml += `${spaces}${key}: ${value}\n`;
+        }
+    }
+    
+    return yaml;
+}
+
+function formatPolicyEditor() {
+    const editor = document.getElementById('policy-editor');
+    const format = document.getElementById('policy-format-select').value;
+    
+    try {
+        if (format === 'json') {
+            const json = JSON.parse(editor.value);
+            editor.value = JSON.stringify(json, null, 2);
+        }
+        window.demoApp.showNotification('策略已格式化', 'success');
+        validatePolicyEditor();
+    } catch (error) {
+        window.demoApp.showNotification('格式化失败，请检查语法', 'error');
+    }
+}
+
+function validatePolicyEditor() {
+    const editor = document.getElementById('policy-editor');
+    const validationResult = document.getElementById('policy-validation-result');
+    const format = document.getElementById('policy-format-select').value;
+    
+    try {
+        if (!editor.value.trim()) {
+            validationResult.innerHTML = '<div class="text-muted">输入策略数据开始验证</div>';
+            validationResult.className = 'validation-result';
+            document.getElementById('policy-save-btn').disabled = true;
+            return;
+        }
+        
+        let policyData;
+        if (format === 'json') {
+            policyData = JSON.parse(editor.value);
+        } else {
+            policyData = parseSimpleYaml(editor.value);
+        }
+        
+        // Policy validation
+        const errors = [];
+        const warnings = [];
+        
+        if (!policyData.policy_id) {
+            errors.push('缺少 policy_id 字段');
+        }
+        if (!policyData.name) {
+            errors.push('缺少 name 字段');
+        }
+        if (!policyData.rules || !Array.isArray(policyData.rules) || policyData.rules.length === 0) {
+            errors.push('缺少 rules 字段或规则为空');
+        }
+        
+        if (!policyData.description) {
+            warnings.push('建议添加 description 字段');
+        }
+        if (!policyData.severity) {
+            warnings.push('建议添加 severity 字段');
+        }
+        
+        // Validate rules
+        if (policyData.rules && Array.isArray(policyData.rules)) {
+            policyData.rules.forEach((rule, index) => {
+                if (!rule.rule_id) {
+                    errors.push(`规则 ${index + 1} 缺少 rule_id 字段`);
+                }
+                if (!rule.condition) {
+                    errors.push(`规则 ${index + 1} 缺少 condition 字段`);
+                }
+                if (!rule.action) {
+                    warnings.push(`规则 ${index + 1} 建议添加 action 字段`);
+                }
+            });
+        }
+        
+        let resultHtml = '';
+        if (errors.length === 0) {
+            resultHtml = '<div class="text-success"><i class="fas fa-check-circle me-2"></i>策略格式正确</div>';
+            validationResult.className = 'validation-result success';
+            document.getElementById('policy-save-btn').disabled = false;
+        } else {
+            resultHtml = '<div class="text-danger"><i class="fas fa-times-circle me-2"></i>验证失败</div>';
+            validationResult.className = 'validation-result error';
+            document.getElementById('policy-save-btn').disabled = true;
+        }
+        
+        if (errors.length > 0) {
+            resultHtml += '<div class="mt-2"><strong>错误:</strong></div>';
+            errors.forEach(error => {
+                resultHtml += `<div class="text-danger small">• ${error}</div>`;
+            });
+        }
+        
+        if (warnings.length > 0) {
+            resultHtml += '<div class="mt-2"><strong>建议:</strong></div>';
+            warnings.forEach(warning => {
+                resultHtml += `<div class="text-warning small">• ${warning}</div>`;
+            });
+        }
+        
+        // Show structure info
+        resultHtml += '<div class="mt-3"><strong>策略信息:</strong></div>';
+        resultHtml += `<div class="small text-muted">策略名称: ${policyData.name || 'N/A'}</div>`;
+        resultHtml += `<div class="small text-muted">规则数量: ${policyData.rules ? policyData.rules.length : 0}</div>`;
+        resultHtml += `<div class="small text-muted">严重度: ${policyData.severity || 'N/A'}</div>`;
+        
+        validationResult.innerHTML = resultHtml;
+        
+    } catch (error) {
+        validationResult.innerHTML = `
+            <div class="text-danger">
+                <i class="fas fa-times-circle me-2"></i>策略语法错误
+            </div>
+            <div class="small text-danger mt-2">${error.message}</div>
+        `;
+        validationResult.className = 'validation-result error';
+        document.getElementById('policy-save-btn').disabled = true;
+    }
+}
+
+function clearPolicyEditor() {
+    document.getElementById('policy-editor').value = '';
+    validatePolicyEditor();
+}
+
+async function savePolicyEditor() {
+    const editor = document.getElementById('policy-editor');
+    const format = document.getElementById('policy-format-select').value;
+    
+    try {
+        let policyData;
+        if (format === 'json') {
+            policyData = JSON.parse(editor.value);
+        } else {
+            policyData = parseSimpleYaml(editor.value);
+        }
+        
+        const response = await fetch('/api/policies', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(policyData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            window.demoApp.showNotification('策略保存成功', 'success');
+            loadPoliciesList();
+            // Switch back to list tab
+            document.getElementById('policy-list-tab').click();
+        } else {
+            window.demoApp.showNotification(`保存失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('保存策略失败:', error);
+        window.demoApp.showNotification('保存策略失败', 'error');
+    }
+}
+
+function previewPolicyEditor() {
+    const editor = document.getElementById('policy-editor');
+    const format = document.getElementById('policy-format-select').value;
+    
+    try {
+        let policyData;
+        if (format === 'json') {
+            policyData = JSON.parse(editor.value);
+        } else {
+            policyData = parseSimpleYaml(editor.value);
+        }
+        
+        let previewHtml = `
+            <div class="alert alert-info">
+                <h6><i class="fas fa-eye me-2"></i>策略预览</h6>
+                <p><strong>名称:</strong> ${policyData.name}</p>
+                <p><strong>描述:</strong> ${policyData.description || 'N/A'}</p>
+                <p><strong>严重度:</strong> ${policyData.severity || 'N/A'}</p>
+                <p><strong>状态:</strong> ${policyData.enabled ? '启用' : '禁用'}</p>
+        `;
+        
+        if (policyData.rules && policyData.rules.length > 0) {
+            previewHtml += '<p><strong>规则:</strong></p><ul>';
+            policyData.rules.forEach(rule => {
+                previewHtml += `<li>${rule.name || rule.rule_id}: ${rule.description || rule.condition}</li>`;
+            });
+            previewHtml += '</ul>';
+        }
+        
+        previewHtml += '</div>';
+        
+        // Show in validation area
+        document.getElementById('policy-validation-result').innerHTML = previewHtml;
+        
+    } catch (error) {
+        window.demoApp.showNotification('预览失败: 策略格式错误', 'error');
+    }
+}
+
+async function testPolicyEditor() {
+    const editor = document.getElementById('policy-editor');
+    const format = document.getElementById('policy-format-select').value;
+    
+    try {
+        let policyData;
+        if (format === 'json') {
+            policyData = JSON.parse(editor.value);
+        } else {
+            policyData = parseSimpleYaml(editor.value);
+        }
+        
+        // Create a test event that should match this policy
+        const testEvent = {
+            event_type: "security_alert",
+            log_data: {
+                src_ip: "192.168.1.100",
+                dst_ip: "10.0.0.1", 
+                username: "test_user",
+                action: "test_action",
+                severity: "high",
+                timestamp: new Date().toISOString(),
+                policy_test: true
+            }
+        };
+        
+        window.demoApp.showNotification('正在测试策略...', 'info');
+        
+        // Send test event with policy context
+        const response = await fetch('/api/policies/test', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                policy: policyData,
+                test_event: testEvent
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            let resultMessage = `策略测试完成: ${data.matches_count} 个规则匹配`;
+            if (data.triggered_rules && data.triggered_rules.length > 0) {
+                resultMessage += `\n触发规则: ${data.triggered_rules.join(', ')}`;
+            }
+            window.demoApp.showNotification(resultMessage, 'success');
+        } else {
+            window.demoApp.showNotification(`测试失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('测试策略失败:', error);
+        window.demoApp.showNotification('测试策略失败', 'error');
+    }
+}
+
+// Policy Management Functions
+async function editPolicy(policyId) {
+    try {
+        const response = await fetch(`/api/policies/${policyId}`);
+        const data = await response.json();
+        
+        if (data.success && data.policy) {
+            // Switch to editor tab
+            document.getElementById('policy-editor-tab').click();
+            
+            // Load policy into editor
+            document.getElementById('policy-editor').value = JSON.stringify(data.policy, null, 2);
+            validatePolicyEditor();
+            
+            window.demoApp.showNotification(`已加载策略: ${data.policy.name}`, 'info');
+        } else {
+            window.demoApp.showNotification('加载策略失败', 'error');
+        }
+        
+    } catch (error) {
+        console.error('编辑策略失败:', error);
+        window.demoApp.showNotification('编辑策略失败', 'error');
+    }
+}
+
+async function testPolicy(policyId) {
+    try {
+        const response = await fetch(`/api/policies/${policyId}/test`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            window.demoApp.showNotification(`策略测试完成: ${data.message}`, 'success');
+        } else {
+            window.demoApp.showNotification(`测试失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('测试策略失败:', error);
+        window.demoApp.showNotification('测试策略失败', 'error');
+    }
+}
+
+async function togglePolicy(policyId, enabled) {
+    try {
+        const response = await fetch(`/api/policies/${policyId}/toggle`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ enabled: enabled })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            window.demoApp.showNotification(`策略已${enabled ? '启用' : '禁用'}`, 'success');
+            loadPoliciesList();
+        } else {
+            window.demoApp.showNotification(`操作失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('切换策略状态失败:', error);
+        window.demoApp.showNotification('操作失败', 'error');
+    }
+}
+
+async function deletePolicy(policyId) {
+    if (!confirm('确定要删除这个策略吗？此操作不可恢复。')) return;
+    
+    try {
+        const response = await fetch(`/api/policies/${policyId}`, {
+            method: 'DELETE'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            window.demoApp.showNotification('策略已删除', 'success');
+            loadPoliciesList();
+        } else {
+            window.demoApp.showNotification(`删除失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('删除策略失败:', error);
+        window.demoApp.showNotification('删除策略失败', 'error');
+    }
+}
+
+// Policy Export Functions
+async function loadPoliciesForExport() {
+    try {
+        const response = await fetch('/api/policies');
+        const data = await response.json();
+        
+        const container = document.getElementById('export-policy-list');
+        if (!container) return;
+        
+        let html = '';
+        if (data.policies && data.policies.length > 0) {
+            data.policies.forEach(policy => {
+                const statusBadge = policy.enabled ? 
+                    '<span class="badge bg-success ms-2">已启用</span>' : 
+                    '<span class="badge bg-secondary ms-2">已禁用</span>';
+                
+                html += `
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="${policy.policy_id}" id="export-${policy.policy_id}">
+                        <label class="form-check-label" for="export-${policy.policy_id}">
+                            ${policy.name} ${statusBadge}
+                            <div class="text-muted small">${policy.description}</div>
+                        </label>
+                    </div>
+                `;
+            });
+        } else {
+            html = '<div class="text-muted">暂无可导出的策略</div>';
+        }
+        
+        container.innerHTML = html;
+        
+    } catch (error) {
+        console.error('加载导出列表失败:', error);
+        window.demoApp.showNotification('加载导出列表失败', 'error');
+    }
+}
+
+function selectAllPoliciesForExport() {
+    const checkboxes = document.querySelectorAll('#export-policy-list input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+}
+
+function clearExportSelection() {
+    const checkboxes = document.querySelectorAll('#export-policy-list input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+}
+
+async function exportSelectedPolicies() {
+    const checkboxes = document.querySelectorAll('#export-policy-list input[type="checkbox"]:checked');
+    const selectedPolicyIds = Array.from(checkboxes).map(cb => cb.value);
+    
+    if (selectedPolicyIds.length === 0) {
+        window.demoApp.showNotification('请选择要导出的策略', 'warning');
+        return;
+    }
+    
+    const format = document.getElementById('export-format').value;
+    const filename = document.getElementById('export-filename').value || 'security_policies';
+    const includeDisabled = document.getElementById('export-include-disabled').checked;
+    const includeMetadata = document.getElementById('export-include-metadata').checked;
+    
+    try {
+        const response = await fetch('/api/policies/export', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                policy_ids: selectedPolicyIds,
+                format: format,
+                include_disabled: includeDisabled,
+                include_metadata: includeMetadata
+            })
+        });
+        
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            window.demoApp.showNotification(`成功导出 ${selectedPolicyIds.length} 个策略`, 'success');
+        } else {
+            const data = await response.json();
+            window.demoApp.showNotification(`导出失败: ${data.message}`, 'error');
+        }
+        
+    } catch (error) {
+        console.error('导出策略失败:', error);
+        window.demoApp.showNotification('导出策略失败', 'error');
+    }
+}
+
+// Event listener for policy tabs
+document.addEventListener('DOMContentLoaded', function() {
+    // Load export list when export tab is shown
+    const exportTab = document.getElementById('policy-export-tab');
+    if (exportTab) {
+        exportTab.addEventListener('shown.bs.tab', function() {
+            loadPoliciesForExport();
+        });
+    }
+    
+    // Real-time policy editor validation
+    const policyEditor = document.getElementById('policy-editor');
+    if (policyEditor) {
+        let validationTimeout;
+        policyEditor.addEventListener('input', function() {
+            clearTimeout(validationTimeout);
+            validationTimeout = setTimeout(validatePolicyEditor, 500);
+        });
+    }
+});
 
 // 页面加载完成后初始化应用
 document.addEventListener('DOMContentLoaded', function() {

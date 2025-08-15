@@ -13,6 +13,8 @@ import time
 import subprocess
 import threading
 import logging
+import yaml
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
@@ -314,6 +316,446 @@ class SystemManager:
 
 system_manager = SystemManager()
 
+class SecurityPolicyManager:
+    """安全策略管理器"""
+    
+    def __init__(self):
+        self.policies_file = project_root / 'security_policies.json'
+        self.policies = self.load_policies()
+        
+    def load_policies(self) -> List[Dict]:
+        """加载策略列表"""
+        try:
+            if self.policies_file.exists():
+                with open(self.policies_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    return data.get('policies', [])
+            else:
+                # 创建默认策略
+                default_policies = self.create_default_policies()
+                self.save_policies(default_policies)
+                return default_policies
+        except Exception as e:
+            logger.error(f"加载策略失败: {str(e)}")
+            return []
+    
+    def create_default_policies(self) -> List[Dict]:
+        """创建默认策略"""
+        timestamp = datetime.now().isoformat()
+        return [
+            {
+                "policy_id": "default_brute_force_detection",
+                "name": "暴力破解检测策略",
+                "description": "检测短时间内多次登录失败的暴力破解行为",
+                "severity": "high",
+                "enabled": True,
+                "rules": [
+                    {
+                        "rule_id": "brute_force_rule_1",
+                        "name": "多次登录失败检测",
+                        "condition": "event_type == 'security_brute_force' AND log_data.action == 'failed_login'",
+                        "action": "alert",
+                        "threshold": {
+                            "count": 5,
+                            "time_window": "5m"
+                        },
+                        "description": "5分钟内超过5次登录失败触发告警"
+                    }
+                ],
+                "metadata": {
+                    "created_by": "system",
+                    "created_at": timestamp,
+                    "version": "1.0",
+                    "tags": ["authentication", "brute_force"]
+                }
+            },
+            {
+                "policy_id": "default_lateral_movement_detection",
+                "name": "横向移动检测策略", 
+                "description": "检测网络内部的横向移动和权限提升行为",
+                "severity": "critical",
+                "enabled": True,
+                "rules": [
+                    {
+                        "rule_id": "lateral_rule_1",
+                        "name": "异常内网连接检测",
+                        "condition": "event_type == 'security_lateral_movement' AND log_data.src_ip LIKE '192.168.*'",
+                        "action": "alert",
+                        "description": "检测内网间的异常连接行为"
+                    }
+                ],
+                "metadata": {
+                    "created_by": "system",
+                    "created_at": timestamp,
+                    "version": "1.0", 
+                    "tags": ["lateral_movement", "internal"]
+                }
+            }
+        ]
+    
+    def save_policies(self, policies: List[Dict]) -> bool:
+        """保存策略列表"""
+        try:
+            data = {
+                'policies': policies,
+                'updated_at': datetime.now().isoformat()
+            }
+            with open(self.policies_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            self.policies = policies
+            return True
+        except Exception as e:
+            logger.error(f"保存策略失败: {str(e)}")
+            return False
+    
+    def get_policies(self) -> List[Dict]:
+        """获取所有策略"""
+        return self.policies
+    
+    def get_policy(self, policy_id: str) -> Optional[Dict]:
+        """获取单个策略"""
+        for policy in self.policies:
+            if policy['policy_id'] == policy_id:
+                return policy
+        return None
+    
+    def add_policy(self, policy_data: Dict) -> bool:
+        """添加策略"""
+        try:
+            # 生成ID如果不存在
+            if 'policy_id' not in policy_data:
+                policy_data['policy_id'] = f"policy_{int(time.time())}_{uuid.uuid4().hex[:8]}"
+            
+            # 检查ID是否已存在
+            if self.get_policy(policy_data['policy_id']):
+                return False
+            
+            # 设置默认值
+            policy_data.setdefault('enabled', True)
+            policy_data.setdefault('severity', 'medium')
+            
+            # 添加元数据
+            if 'metadata' not in policy_data:
+                policy_data['metadata'] = {}
+            policy_data['metadata'].update({
+                'created_at': datetime.now().isoformat(),
+                'created_by': 'admin'
+            })
+            
+            self.policies.append(policy_data)
+            return self.save_policies(self.policies)
+        except Exception as e:
+            logger.error(f"添加策略失败: {str(e)}")
+            return False
+    
+    def update_policy(self, policy_id: str, policy_data: Dict) -> bool:
+        """更新策略"""
+        try:
+            for i, policy in enumerate(self.policies):
+                if policy['policy_id'] == policy_id:
+                    # 保留原有的创建信息
+                    if 'metadata' in policy:
+                        policy_data.setdefault('metadata', {})
+                        policy_data['metadata'].update({
+                            'created_at': policy['metadata'].get('created_at', datetime.now().isoformat()),
+                            'created_by': policy['metadata'].get('created_by', 'admin'),
+                            'updated_at': datetime.now().isoformat(),
+                            'updated_by': 'admin'
+                        })
+                    
+                    self.policies[i] = policy_data
+                    return self.save_policies(self.policies)
+            return False
+        except Exception as e:
+            logger.error(f"更新策略失败: {str(e)}")
+            return False
+    
+    def delete_policy(self, policy_id: str) -> bool:
+        """删除策略"""
+        try:
+            self.policies = [p for p in self.policies if p['policy_id'] != policy_id]
+            return self.save_policies(self.policies)
+        except Exception as e:
+            logger.error(f"删除策略失败: {str(e)}")
+            return False
+    
+    def toggle_policy(self, policy_id: str, enabled: bool) -> bool:
+        """启用/禁用策略"""
+        policy = self.get_policy(policy_id)
+        if policy:
+            policy['enabled'] = enabled
+            if 'metadata' not in policy:
+                policy['metadata'] = {}
+            policy['metadata']['updated_at'] = datetime.now().isoformat()
+            return self.save_policies(self.policies)
+        return False
+    
+    def import_policies(self, policies_data: List[Dict]) -> Dict[str, Any]:
+        """导入策略"""
+        try:
+            imported_count = 0
+            skipped_count = 0
+            
+            for policy_data in policies_data:
+                # 检查必需字段
+                if 'policy_id' not in policy_data or 'name' not in policy_data:
+                    skipped_count += 1
+                    continue
+                
+                # 如果策略已存在，跳过或更新
+                existing_policy = self.get_policy(policy_data['policy_id'])
+                if existing_policy:
+                    # 可选择跳过或覆盖
+                    skipped_count += 1
+                    continue
+                
+                if self.add_policy(policy_data):
+                    imported_count += 1
+                else:
+                    skipped_count += 1
+            
+            return {
+                'success': True,
+                'imported_count': imported_count,
+                'skipped_count': skipped_count,
+                'total_count': len(policies_data)
+            }
+        except Exception as e:
+            logger.error(f"导入策略失败: {str(e)}")
+            return {'success': False, 'message': str(e)}
+    
+    def export_policies(self, policy_ids: List[str] = None, format_type: str = 'json', 
+                       include_disabled: bool = True, include_metadata: bool = True) -> Dict[str, Any]:
+        """导出策略"""
+        try:
+            # 过滤策略
+            policies_to_export = []
+            for policy in self.policies:
+                # 按ID过滤
+                if policy_ids and policy['policy_id'] not in policy_ids:
+                    continue
+                
+                # 按状态过滤
+                if not include_disabled and not policy.get('enabled', True):
+                    continue
+                
+                # 复制策略数据
+                policy_copy = policy.copy()
+                
+                # 是否包含元数据
+                if not include_metadata and 'metadata' in policy_copy:
+                    del policy_copy['metadata']
+                
+                policies_to_export.append(policy_copy)
+            
+            # 根据格式导出
+            if format_type == 'yaml':
+                return {
+                    'success': True,
+                    'data': yaml.dump({'policies': policies_to_export}, default_flow_style=False, 
+                                     allow_unicode=True, indent=2),
+                    'content_type': 'text/yaml'
+                }
+            elif format_type == 'xml':
+                # 简单的XML转换
+                xml_data = '<policies>\n'
+                for policy in policies_to_export:
+                    xml_data += '  <policy>\n'
+                    for key, value in policy.items():
+                        if isinstance(value, (dict, list)):
+                            xml_data += f'    <{key}><![CDATA[{json.dumps(value)}]]></{key}>\n'
+                        else:
+                            xml_data += f'    <{key}>{value}</{key}>\n'
+                    xml_data += '  </policy>\n'
+                xml_data += '</policies>'
+                
+                return {
+                    'success': True,
+                    'data': xml_data,
+                    'content_type': 'text/xml'
+                }
+            else:  # JSON (default)
+                return {
+                    'success': True,
+                    'data': json.dumps({'policies': policies_to_export}, ensure_ascii=False, indent=2),
+                    'content_type': 'application/json'
+                }
+                
+        except Exception as e:
+            logger.error(f"导出策略失败: {str(e)}")
+            return {'success': False, 'message': str(e)}
+    
+    def test_policy(self, policy_data: Dict, test_event: Dict = None) -> Dict[str, Any]:
+        """测试策略"""
+        try:
+            if not test_event:
+                # 创建默认测试事件
+                test_event = {
+                    "event_type": "security_alert",
+                    "log_data": {
+                        "src_ip": "192.168.1.100",
+                        "dst_ip": "10.0.0.1",
+                        "username": "test_user",
+                        "action": "test_action",
+                        "severity": "high",
+                        "timestamp": datetime.now().isoformat()
+                    }
+                }
+            
+            matched_rules = []
+            matches_count = 0
+            
+            # 简单的规则匹配逻辑
+            rules = policy_data.get('rules', [])
+            for rule in rules:
+                condition = rule.get('condition', '')
+                
+                # 简化的条件匹配（实际应该使用表达式解析器）
+                if self.evaluate_condition(condition, test_event):
+                    matched_rules.append(rule.get('name', rule.get('rule_id', 'unknown')))
+                    matches_count += 1
+            
+            return {
+                'success': True,
+                'matches_count': matches_count,
+                'triggered_rules': matched_rules,
+                'message': f'测试完成，{matches_count} 个规则匹配'
+            }
+        except Exception as e:
+            logger.error(f"测试策略失败: {str(e)}")
+            return {'success': False, 'message': str(e)}
+    
+    def evaluate_condition(self, condition: str, event: Dict) -> bool:
+        """评估条件表达式（简化版本）"""
+        try:
+            # 这是一个简化的条件评估器，实际生产环境应该使用更安全的表达式解析器
+            # 替换常见的条件
+            condition = condition.replace('event_type', f'"{event.get("event_type", "")}"')
+            
+            # 处理log_data字段
+            log_data = event.get('log_data', {})
+            for key, value in log_data.items():
+                condition = condition.replace(f'log_data.{key}', f'"{value}"')
+            
+            # 处理操作符
+            condition = condition.replace(' AND ', ' and ')
+            condition = condition.replace(' OR ', ' or ')
+            condition = condition.replace(' == ', ' == ')
+            condition = condition.replace(' LIKE ', ' in ')
+            
+            # 安全起见，只允许基本的比较操作
+            if any(op in condition for op in ['import', 'exec', 'eval', 'open', 'file']):
+                return False
+            
+            # 简单的字符串匹配检查
+            if 'security_alert' in condition and event.get('event_type') == 'security_alert':
+                return True
+            if 'security_brute_force' in condition and event.get('event_type') == 'security_brute_force':
+                return True
+            if 'security_lateral_movement' in condition and event.get('event_type') == 'security_lateral_movement':
+                return True
+                
+            return False
+        except Exception as e:
+            logger.error(f"条件评估失败: {str(e)}")
+            return False
+
+policy_manager = SecurityPolicyManager()
+
+def generate_test_event_for_policy(policy: Dict) -> Dict:
+    """根据策略生成匹配的测试事件"""
+    try:
+        policy_id = policy.get('policy_id', '')
+        policy_name = policy.get('name', '')
+        
+        # 根据策略类型生成不同的测试事件
+        if 'brute_force' in policy_id.lower() or 'brute_force' in policy_name.lower():
+            return {
+                "event_type": "security_brute_force",
+                "log_data": {
+                    "src_ip": "203.0.113.100",
+                    "dst_ip": "10.0.0.1",
+                    "username": "admin",
+                    "action": "failed_login",
+                    "failure_count": 6,
+                    "timestamp": datetime.now().isoformat(),
+                    "severity": "high",
+                    "matched_policy": policy_id
+                }
+            }
+        elif 'lateral_movement' in policy_id.lower() or 'lateral' in policy_name.lower():
+            return {
+                "event_type": "security_lateral_movement",
+                "log_data": {
+                    "src_ip": "192.168.1.100",
+                    "dst_ip": "192.168.1.50",
+                    "username": "attacker",
+                    "action": "ssh_login",
+                    "protocol": "SSH",
+                    "timestamp": datetime.now().isoformat(),
+                    "severity": "critical",
+                    "matched_policy": policy_id
+                }
+            }
+        elif 'data_exfiltration' in policy_id.lower() or 'exfiltration' in policy_name.lower():
+            return {
+                "event_type": "security_data_exfiltration",
+                "log_data": {
+                    "src_ip": "10.0.0.100",
+                    "dst_ip": "198.51.100.1",
+                    "username": "admin",
+                    "action": "large_data_transfer",
+                    "data_size": "250MB",
+                    "file_types": "database,financial",
+                    "timestamp": datetime.now().isoformat(),
+                    "severity": "critical",
+                    "matched_policy": policy_id
+                }
+            }
+        elif 'malware' in policy_id.lower() or 'malware' in policy_name.lower():
+            return {
+                "event_type": "security_malware",
+                "log_data": {
+                    "src_ip": "192.168.1.100",
+                    "dst_ip": "10.0.0.50",
+                    "username": "user",
+                    "action": "malware_detected",
+                    "file_path": "/tmp/suspicious.exe",
+                    "malware_family": "trojan",
+                    "timestamp": datetime.now().isoformat(),
+                    "severity": "critical",
+                    "matched_policy": policy_id
+                }
+            }
+        else:
+            # 通用安全告警事件
+            return {
+                "event_type": "security_alert",
+                "log_data": {
+                    "src_ip": "192.168.1.100",
+                    "dst_ip": "10.0.0.1",
+                    "username": "test_user",
+                    "action": "suspicious_activity",
+                    "timestamp": datetime.now().isoformat(),
+                    "severity": policy.get('severity', 'medium'),
+                    "matched_policy": policy_id
+                }
+            }
+    except Exception as e:
+        logger.error(f"生成策略测试事件失败: {str(e)}")
+        # 返回默认事件
+        return {
+            "event_type": "security_demo",
+            "log_data": {
+                "src_ip": "192.168.1.100",
+                "dst_ip": "10.0.0.1",
+                "username": "demo_user",
+                "action": "test_action",
+                "timestamp": datetime.now().isoformat(),
+                "severity": "medium"
+            }
+        }
+
 @app.route('/')
 def index():
     """主页"""
@@ -570,18 +1012,31 @@ def create_attack_graph_in_neo4j(host: str, attack_data: dict):
 def create_test_event():
     """创建测试事件"""
     try:
-        # 发送测试事件到API
-        test_data = {
-            "event_type": "security_demo",
-            "log_data": {
-                "src_ip": "192.168.1.100",
-                "dst_ip": "10.0.0.1",
-                "username": "demo_user",
-                "action": "login_attempt",
-                "timestamp": datetime.now().isoformat(),
-                "severity": "medium"
+        # 获取当前启用的策略列表
+        enabled_policies = [p for p in policy_manager.get_policies() if p.get('enabled', True)]
+        
+        if enabled_policies:
+            # 随机选择一个策略来生成匹配的测试事件
+            import random
+            selected_policy = random.choice(enabled_policies)
+            test_data = generate_test_event_for_policy(selected_policy)
+            
+            # 记录使用的策略
+            system_manager.add_log('INFO', f'基于策略"{selected_policy["name"]}"生成测试事件')
+        else:
+            # 如果没有启用的策略，使用默认测试事件
+            test_data = {
+                "event_type": "security_demo",
+                "log_data": {
+                    "src_ip": "192.168.1.100",
+                    "dst_ip": "10.0.0.1",
+                    "username": "demo_user",
+                    "action": "login_attempt",
+                    "timestamp": datetime.now().isoformat(),
+                    "severity": "medium"
+                }
             }
-        }
+            system_manager.add_log('INFO', '使用默认测试事件（未找到启用的策略）')
         
         # 获取请求的主机地址
         host = request.headers.get('Host', 'localhost').split(':')[0]
@@ -602,11 +1057,21 @@ def create_test_event():
                 entities = event_data.get('entities', [])
                 max_risk = event_data.get('risk_score', 0)
                 
-                # 发送实体分析结果到前端
+                # 发送实体分析结果到前端，包含策略信息
+                matched_policy_id = test_data['log_data'].get('matched_policy')
+                matched_policy = None
+                if matched_policy_id:
+                    matched_policy = policy_manager.get_policy(matched_policy_id)
+                
                 socketio.emit('entity_analysis', {
                     'entities': entities,
                     'max_risk_score': max_risk,
                     'event_id': event_data.get('event_id', 'unknown'),
+                    'matched_policy': {
+                        'policy_id': matched_policy_id,
+                        'policy_name': matched_policy['name'] if matched_policy else '未知策略',
+                        'description': matched_policy['description'] if matched_policy else ''
+                    } if matched_policy_id else None,
                     'timestamp': datetime.now().isoformat()
                 })
                 
@@ -700,27 +1165,65 @@ def create_test_event():
 @app.route('/api/demo/scenarios')
 def get_demo_scenarios():
     """获取演示场景"""
+    # 获取当前策略列表来关联场景
+    policies = policy_manager.get_policies()
+    policy_map = {p['policy_id']: p for p in policies}
+    
     scenarios = [
         {
             'id': 'lateral_movement',
-            'name': '横向移动攻击',
-            'description': '模拟攻击者在内网中的横向移动行为',
+            'name': '横向移动攻击演示',
+            'description': '模拟攻击者在内网中的横向移动行为，触发横向移动检测策略',
             'events': 5,
-            'duration': '30秒'
+            'duration': '30秒',
+            'related_policies': [
+                {
+                    'policy_id': 'default_lateral_movement_detection',
+                    'name': policy_map.get('default_lateral_movement_detection', {}).get('name', '横向移动检测策略'),
+                    'enabled': policy_map.get('default_lateral_movement_detection', {}).get('enabled', False)
+                }
+            ]
         },
         {
             'id': 'brute_force',
-            'name': '暴力破解攻击',
-            'description': '模拟对系统账户的暴力破解尝试',
+            'name': '暴力破解攻击演示',
+            'description': '模拟对系统账户的暴力破解尝试，触发暴力破解检测策略',
             'events': 10,
-            'duration': '60秒'
+            'duration': '60秒',
+            'related_policies': [
+                {
+                    'policy_id': 'default_brute_force_detection',
+                    'name': policy_map.get('default_brute_force_detection', {}).get('name', '暴力破解检测策略'),
+                    'enabled': policy_map.get('default_brute_force_detection', {}).get('enabled', False)
+                }
+            ]
         },
         {
             'id': 'data_exfiltration',
-            'name': '数据泄露',
-            'description': '模拟敏感数据的非法外传行为',
+            'name': '数据泄露攻击演示',
+            'description': '模拟敏感数据的非法外传行为，触发数据泄露检测策略',
             'events': 8,
-            'duration': '45秒'
+            'duration': '45秒',
+            'related_policies': []  # 需要用户自己创建数据泄露策略
+        },
+        {
+            'id': 'comprehensive_attack',
+            'name': '综合攻击场景',
+            'description': '完整的攻击链演示：暴力破解→横向移动→数据泄露',
+            'events': 15,
+            'duration': '90秒',
+            'related_policies': [
+                {
+                    'policy_id': 'default_brute_force_detection',
+                    'name': policy_map.get('default_brute_force_detection', {}).get('name', '暴力破解检测策略'),
+                    'enabled': policy_map.get('default_brute_force_detection', {}).get('enabled', False)
+                },
+                {
+                    'policy_id': 'default_lateral_movement_detection',
+                    'name': policy_map.get('default_lateral_movement_detection', {}).get('name', '横向移动检测策略'),
+                    'enabled': policy_map.get('default_lateral_movement_detection', {}).get('enabled', False)
+                }
+            ]
         }
     ]
     return jsonify({'scenarios': scenarios})
@@ -965,6 +1468,175 @@ def validate_event():
             'errors': [f'JSON解析错误: {str(e)}'],
             'warnings': []
         }), 400
+
+@socketio.on('connect')
+def handle_connect():
+    """WebSocket连接"""
+    emit('connected', {'message': '连接成功'})
+
+# Security Policies API Routes
+@app.route('/api/policies', methods=['GET'])
+def get_policies():
+    """获取策略列表"""
+    try:
+        policies = policy_manager.get_policies()
+        return jsonify({
+            'success': True,
+            'policies': policies,
+            'count': len(policies)
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/<policy_id>', methods=['GET'])
+def get_policy(policy_id):
+    """获取单个策略"""
+    try:
+        policy = policy_manager.get_policy(policy_id)
+        if policy:
+            return jsonify({'success': True, 'policy': policy})
+        else:
+            return jsonify({'success': False, 'message': '策略不存在'}), 404
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies', methods=['POST'])
+def create_policy():
+    """创建策略"""
+    try:
+        policy_data = request.get_json()
+        if not policy_data:
+            return jsonify({'success': False, 'message': '缺少策略数据'}), 400
+        
+        if policy_manager.add_policy(policy_data):
+            return jsonify({'success': True, 'message': '策略创建成功'})
+        else:
+            return jsonify({'success': False, 'message': '策略创建失败'}), 500
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/<policy_id>', methods=['PUT'])
+def update_policy(policy_id):
+    """更新策略"""
+    try:
+        policy_data = request.get_json()
+        if not policy_data:
+            return jsonify({'success': False, 'message': '缺少策略数据'}), 400
+        
+        if policy_manager.update_policy(policy_id, policy_data):
+            return jsonify({'success': True, 'message': '策略更新成功'})
+        else:
+            return jsonify({'success': False, 'message': '策略更新失败'}), 404
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/<policy_id>', methods=['DELETE'])
+def delete_policy(policy_id):
+    """删除策略"""
+    try:
+        if policy_manager.delete_policy(policy_id):
+            return jsonify({'success': True, 'message': '策略删除成功'})
+        else:
+            return jsonify({'success': False, 'message': '策略删除失败'}), 404
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/<policy_id>/toggle', methods=['PUT'])
+def toggle_policy(policy_id):
+    """启用/禁用策略"""
+    try:
+        data = request.get_json()
+        if 'enabled' not in data:
+            return jsonify({'success': False, 'message': '缺少enabled参数'}), 400
+        
+        if policy_manager.toggle_policy(policy_id, data['enabled']):
+            return jsonify({'success': True, 'message': '策略状态更新成功'})
+        else:
+            return jsonify({'success': False, 'message': '策略状态更新失败'}), 404
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/import', methods=['POST'])
+def import_policies():
+    """导入策略"""
+    try:
+        data = request.get_json()
+        if not data or 'policies' not in data:
+            return jsonify({'success': False, 'message': '缺少策略数据'}), 400
+        
+        result = policy_manager.import_policies(data['policies'])
+        if result['success']:
+            return jsonify(result)
+        else:
+            return jsonify(result), 500
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/export', methods=['POST'])
+def export_policies():
+    """导出策略"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'success': False, 'message': '缺少导出参数'}), 400
+        
+        policy_ids = data.get('policy_ids', [])
+        format_type = data.get('format', 'json')
+        include_disabled = data.get('include_disabled', True)
+        include_metadata = data.get('include_metadata', True)
+        
+        result = policy_manager.export_policies(
+            policy_ids=policy_ids,
+            format_type=format_type,
+            include_disabled=include_disabled,
+            include_metadata=include_metadata
+        )
+        
+        if result['success']:
+            response = Response(
+                result['data'],
+                mimetype=result['content_type'],
+                headers={
+                    'Content-Disposition': f'attachment; filename=security_policies.{format_type}'
+                }
+            )
+            return response
+        else:
+            return jsonify(result), 500
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/test', methods=['POST'])
+def test_policy():
+    """测试策略"""
+    try:
+        data = request.get_json()
+        if not data or 'policy' not in data:
+            return jsonify({'success': False, 'message': '缺少策略数据'}), 400
+        
+        policy_data = data['policy']
+        test_event = data.get('test_event')
+        
+        result = policy_manager.test_policy(policy_data, test_event)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/policies/<policy_id>/test', methods=['POST'])
+def test_policy_by_id(policy_id):
+    """按ID测试策略"""
+    try:
+        policy = policy_manager.get_policy(policy_id)
+        if not policy:
+            return jsonify({'success': False, 'message': '策略不存在'}), 404
+        
+        data = request.get_json() or {}
+        test_event = data.get('test_event')
+        
+        result = policy_manager.test_policy(policy, test_event)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 @socketio.on('connect')
 def handle_connect():

@@ -249,7 +249,7 @@ system
 
 📊 表列表:
 执行: SHOW TABLES FROM security_analysis
-.inner_id.c32f9cd1-65fb-4921-8a4a-41d4d9684e9c
+.inner_id.5ee10e3f-9cb5-4b0f-9e59-bd68f0193a2d
 analysis_statistics
 baseline_data
 entity_connections
@@ -272,9 +272,9 @@ FROM security_analysis.security_events
 GROUP BY event_type 
 ORDER BY count DESC
 
-brute_force	3	75.19999694824219	75.2
-data_exfiltration	3	65.80000305175781	65.8
-malware_detection	3	85.5	85.5
+brute_force	2	75.19999694824219	75.2
+data_exfiltration	2	65.80000305175781	65.8
+malware_detection	2	85.5	85.5
 
 
 🎯 实体统计:
@@ -287,8 +287,8 @@ FROM security_analysis.security_entities
 GROUP BY entity_type 
 ORDER BY count DESC
 
-file	2	95
 ip	2	45.20000076293945
+file	2	95
 user	2	85.5
 
 

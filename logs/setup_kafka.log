@@ -1,119 +1,113 @@
 📨 配置Kafka主题...
 ⏳ 等待Kafka服务启动...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
+   等待Kafka...
 ✅ Kafka服务已就绪
 
 🏗️  创建安全分析主题...
 创建主题: security-raw-logs
-   主题 security-raw-logs 已存在，跳过创建
 创建主题: security-events
-   主题 security-events 已存在，跳过创建
 创建主题: security-entities
-   主题 security-entities 已存在，跳过创建
 创建主题: security-risk-scores
-   主题 security-risk-scores 已存在，跳过创建
 创建主题: security-alerts
-   主题 security-alerts 已存在，跳过创建
-创建主题: security-responses
-   主题 security-responses 已存在，跳过创建
-创建主题: security-monitoring
-   主题 security-monitoring 已存在，跳过创建
-创建主题: security-dead-letter
-   主题 security-dead-letter 已存在，跳过创建
-
-📊 验证主题创建...
-📋 主题列表:
-   ✅ security-alerts
-   ✅ security-dead-letter
-   ✅ security-entities
-   ✅ security-events
-   ✅ security-monitoring
-   ✅ security-raw-logs
-   ✅ security-responses
-   ✅ security-risk-scores
-
-🔍 主题详细信息:
-
-📄 主题: security-raw-logs
-   Topic: security-raw-logs	TopicId: nmHdxfTySb6vVVdCY3cJSQ	PartitionCount: 6	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=604800000
-   	Topic: security-raw-logs	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-raw-logs	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-raw-logs	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-raw-logs	Partition: 3	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-raw-logs	Partition: 4	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-raw-logs	Partition: 5	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-events
-   Topic: security-events	TopicId: LHvrlppzRceFzyG5HMRcFQ	PartitionCount: 6	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=2592000000
-   	Topic: security-events	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-events	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-events	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-events	Partition: 3	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-events	Partition: 4	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-events	Partition: 5	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-entities
-   Topic: security-entities	TopicId: VOXe2ZWnQJOH9HzpkOolSQ	PartitionCount: 4	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=2592000000
-   	Topic: security-entities	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-entities	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-entities	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-entities	Partition: 3	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-risk-scores
-   Topic: security-risk-scores	TopicId: CrPgqFZVRGSM6agoRnKPog	PartitionCount: 4	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=2592000000
-   	Topic: security-risk-scores	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-risk-scores	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-risk-scores	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-risk-scores	Partition: 3	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-alerts
-   Topic: security-alerts	TopicId: YDyruOuZSja1jnHjjsGMAQ	PartitionCount: 3	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=7776000000
-   	Topic: security-alerts	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-alerts	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-alerts	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-responses
-   Topic: security-responses	TopicId: mCpQIsvvR-qgbDz8uMqjqg	PartitionCount: 3	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=2592000000
-   	Topic: security-responses	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-responses	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-responses	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-monitoring
-   Topic: security-monitoring	TopicId: G5tle2GeS4ODL0Rx9Or15Q	PartitionCount: 2	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=259200000
-   	Topic: security-monitoring	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-monitoring	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-
-📄 主题: security-dead-letter
-   Topic: security-dead-letter	TopicId: d91-EKtlRqK0j7jK-YffTA	PartitionCount: 2	ReplicationFactor: 1	Configs: compression.type=gzip,retention.ms=7776000000
-   	Topic: security-dead-letter	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
-   	Topic: security-dead-letter	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
-
-🧪 测试消息生产和消费...
-📤 发送测试消息到 security-events...
-   ✅ 测试消息已发送
-
-📥 从 security-events 消费消息（超时10秒）...
-{
-
-📈 主题偏移量信息:
-   security-events:0:0
-   security-events:1:11
-   security-events:2:11
-   security-events:3:0
-   security-events:4:0
-
-✅ Kafka主题配置完成！
-
-🎯 Kafka访问信息：
-   - Bootstrap Server: localhost:9092
-   - Kafka UI: http://localhost:8082
-   - JMX Port: 9101
-
-📊 已创建的主题：
-   - security-raw-logs: 原始日志（6分区）
-   - security-events: 安全事件（6分区）
-   - security-entities: 实体数据（4分区）
-   - security-risk-scores: 风险评分（4分区）
-   - security-alerts: 安全告警（3分区）
-   - security-responses: 响应动作（3分区）
-   - security-monitoring: 系统监控（2分区）
-   - security-dead-letter: 死信队列（2分区）
+[2025-08-12 09:23:32,869] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:32,921] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:33,129] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:33,433] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:33,838] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:34,644] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:35,853] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:36,860] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:38,069] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:39,076] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:40,083] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:41,291] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:42,298] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:43,205] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:44,415] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:45,523] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:46,730] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:47,837] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:48,944] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:49,851] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:50,860] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:52,067] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:53,074] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:54,282] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:55,289] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:56,497] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:57,503] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:58,710] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:23:59,616] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:00,521] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:01,628] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:02,735] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:03,782] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:04,588] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:05,695] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:06,600] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:07,707] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:08,713] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:09,819] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:10,724] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:11,831] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:12,736] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:13,843] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:14,848] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:16,055] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:16,960] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:18,066] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:19,172] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:20,379] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:21,384] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:22,490] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:23,695] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:24,701] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:25,707] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:26,612] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:27,818] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:28,824] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:30,030] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:30,934] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:31,940] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2025-08-12 09:24:32,778] WARN [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+Error while executing topic command : Timed out waiting for a node assignment. Call: createTopics
+[2025-08-12 09:24:32,924] ERROR org.apache.kafka.common.errors.TimeoutException: Timed out waiting for a node assignment. Call: createTopics
+ (kafka.admin.TopicCommand$)

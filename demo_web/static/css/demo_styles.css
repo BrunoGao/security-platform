@@ -18,6 +18,163 @@ body {
     overflow-x: hidden;
 }
 
+/* Security Policy Management Styles */
+.policy-preview {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #495057;
+    border-radius: 0.375rem;
+    background-color: #212529;
+    color: #f8f9fa;
+}
+
+.policy-preview pre {
+    background: none;
+    border: none;
+    color: #f8f9fa;
+    margin: 0;
+    padding: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.upload-area {
+    border: 2px dashed #6c757d;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+.upload-area:hover {
+    border-color: #0d6efd;
+    background-color: #495057;
+}
+
+.upload-area.dragover {
+    border-color: #0d6efd;
+    background-color: #0d6efd20;
+}
+
+.upload-area.success {
+    border-color: #198754;
+    background-color: #19875420;
+}
+
+.policy-card {
+    transition: transform 0.2s ease;
+}
+
+.policy-card:hover {
+    transform: translateY(-2px);
+}
+
+.validation-result {
+    border: 1px solid #495057;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    background-color: #212529;
+    min-height: 100px;
+}
+
+.validation-result.success {
+    border-color: #198754;
+    background-color: #19875420;
+}
+
+.validation-result.error {
+    border-color: #dc3545;
+    background-color: #dc354520;
+}
+
+.field-docs {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.field-doc-item {
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #495057;
+}
+
+.field-doc-item:last-child {
+    border-bottom: none;
+}
+
+.export-policy-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #495057;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    background-color: #212529;
+}
+
+.scenario-policies {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #495057;
+}
+
+.json-editor {
+    background-color: #212529;
+    color: #f8f9fa;
+    border: 1px solid #495057;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.json-editor:focus {
+    background-color: #212529;
+    color: #f8f9fa;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.template-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Log level colors for policy-related logs */
+.log-entry.log-success .log-level {
+    color: #198754;
+    font-weight: 600;
+}
+
+.log-entry .log-message {
+    flex: 1;
+}
+
+/* Policy status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-indicator.enabled {
+    background-color: #198754;
+}
+
+.status-indicator.disabled {
+    background-color: #6c757d;
+}
+
 /* 导航栏样式 */
 .navbar.bg-gradient {
     background: var(--bg-gradient) !important;
